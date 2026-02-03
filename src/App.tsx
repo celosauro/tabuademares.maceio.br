@@ -41,29 +41,34 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4 md:py-5">
-          <div className="flex items-center gap-3">
-            <Waves weight="duotone" className="w-8 h-8 md:w-10 md:h-10 text-tide-500" />
-            <h1 className="text-fluid-xl font-bold text-tide-800">
-              Tábua de Marés - Maceió
-            </h1>
+      {/* Header + Menu Selector - Combined sticky container */}
+      <div className="sticky top-0 z-10">
+        {/* Header */}
+        <header className="bg-white">
+          <div className="max-w-7xl mx-auto px-4 py-4 md:py-5">
+            <div className="flex items-center gap-3">
+              <Waves weight="duotone" className="w-8 h-8 md:w-10 md:h-10 text-tide-500" />
+              <h1 className="text-fluid-xl font-bold text-tide-800">
+                Tábua de Marés - Maceió
+              </h1>
+            </div>
           </div>
-        </div>
-      </header>
+          {/* Separator */}
+          <div className="h-px bg-tide-200" />
+        </header>
 
-      {/* Month Selector - Sticky below header */}
-      <div className="bg-white shadow-sm border-b border-tide-100 sticky top-[72px] md:top-[84px] z-10">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <MonthSelector
-            selectedMonth={selectedMonth}
-            onMonthChange={handleMonthChange}
-            filterLowTide={filterLowTide}
-            onFilterChange={setFilterLowTide}
-            viewMode={viewMode}
-            onViewModeChange={setViewMode}
-          />
+        {/* Month Selector */}
+        <div className="bg-white shadow-sm border-b border-tide-100">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <MonthSelector
+              selectedMonth={selectedMonth}
+              onMonthChange={handleMonthChange}
+              filterLowTide={filterLowTide}
+              onFilterChange={setFilterLowTide}
+              viewMode={viewMode}
+              onViewModeChange={setViewMode}
+            />
+          </div>
         </div>
       </div>
 
