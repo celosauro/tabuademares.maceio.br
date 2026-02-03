@@ -1,4 +1,4 @@
-import { CalendarBlank, Table } from '@phosphor-icons/react';
+import { CalendarBlank, ListBullets } from '@phosphor-icons/react';
 import { MonthKey, MONTHS } from '../types/tide';
 
 interface MonthSelectorProps {
@@ -121,8 +121,8 @@ export function MonthSelector({
             />
           </button>
           <span className="text-fluid-sm font-medium text-tide-600 flex items-center gap-1">
-            <Table weight={viewMode === 'table' ? 'fill' : 'regular'} className="w-4 h-4" />
-            <span className="hidden sm:inline">Tabela</span>
+            <ListBullets weight={viewMode === 'table' ? 'fill' : 'regular'} className="w-4 h-4" />
+            <span className="hidden sm:inline">Lista</span>
           </span>
         </label>
       )}
