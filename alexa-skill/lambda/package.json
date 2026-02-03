@@ -1,0 +1,21 @@
+{
+  "name": "alexa-tabua-mares-maceio",
+  "version": "1.0.0",
+  "description": "Alexa Skill - Tábua de Marés Maceió",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "alexa",
+    "skill",
+    "tide",
+    "maceio"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk-core": "^2.14.0",
+    "ask-sdk-model": "^1.39.0"
+  }
+}

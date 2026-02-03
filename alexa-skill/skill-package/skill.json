@@ -1,0 +1,60 @@
+{
+  "manifest": {
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "YOUR_LAMBDA_ARN_HERE"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "pt-BR": {
+          "privacyPolicyUrl": "",
+          "termsOfUseUrl": ""
+        }
+      }
+    },
+    "publishingInformation": {
+      "locales": {
+        "pt-BR": {
+          "name": "Tábua de Marés Maceió",
+          "summary": "Consulte os horários e alturas das marés em Maceió, Alagoas.",
+          "description": "A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos.",
+          "smallIconUri": "https://tabuademares.maceio.br/icon-108.png",
+          "largeIconUri": "https://tabuademares.maceio.br/icon-512.png",
+          "examplePhrases": [
+            "Alexa, abrir tábua de marés",
+            "Alexa, perguntar para tábua de marés qual a maré de hoje",
+            "Alexa, perguntar para tábua de marés quando é a maré alta"
+          ],
+          "keywords": [
+            "maré",
+            "marés",
+            "tábua",
+            "maceió",
+            "alagoas",
+            "praia",
+            "pesca",
+            "surf",
+            "náutica"
+          ]
+        }
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "Pergunte sobre as marés de hoje ou de uma data específica. Exemplos: 'qual a maré de hoje', 'quando é a maré alta', 'maré de amanhã'.",
+      "category": "WEATHER",
+      "distributionCountries": [
+        "BR"
+      ]
+    }
+  }
+}

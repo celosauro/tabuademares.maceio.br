@@ -1,0 +1,130 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "tábua de marés",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "GetTodayTidesIntent",
+          "slots": [],
+          "samples": [
+            "como está a maré hoje",
+            "qual a maré de hoje",
+            "quais são as marés de hoje",
+            "me diga a maré de hoje",
+            "horário das marés hoje",
+            "maré de hoje",
+            "marés de hoje",
+            "previsão de maré para hoje",
+            "como estão as marés",
+            "e a maré",
+            "maré"
+          ]
+        },
+        {
+          "name": "GetTidesByDateIntent",
+          "slots": [
+            {
+              "name": "date",
+              "type": "AMAZON.DATE",
+              "samples": [
+                "para {date}",
+                "no dia {date}",
+                "em {date}",
+                "{date}"
+              ]
+            }
+          ],
+          "samples": [
+            "qual a maré de {date}",
+            "como está a maré {date}",
+            "quais são as marés de {date}",
+            "maré para {date}",
+            "marés de {date}",
+            "previsão de maré para {date}",
+            "me diga a maré de {date}",
+            "horário das marés {date}",
+            "qual a previsão da maré para {date}",
+            "e {date}",
+            "{date}"
+          ]
+        },
+        {
+          "name": "GetHighTideIntent",
+          "slots": [
+            {
+              "name": "date",
+              "type": "AMAZON.DATE",
+              "samples": [
+                "para {date}",
+                "no dia {date}",
+                "de {date}"
+              ]
+            }
+          ],
+          "samples": [
+            "quando é a maré alta",
+            "horário da maré alta",
+            "qual o horário da maré alta",
+            "maré alta de hoje",
+            "quando tem maré alta",
+            "quando tem maré alta {date}",
+            "maré alta {date}",
+            "maré alta para {date}",
+            "que horas é a maré alta"
+          ]
+        },
+        {
+          "name": "GetLowTideIntent",
+          "slots": [
+            {
+              "name": "date",
+              "type": "AMAZON.DATE",
+              "samples": [
+                "para {date}",
+                "no dia {date}",
+                "de {date}"
+              ]
+            }
+          ],
+          "samples": [
+            "quando é a maré baixa",
+            "horário da maré baixa",
+            "qual o horário da maré baixa",
+            "maré baixa de hoje",
+            "quando tem maré baixa",
+            "quando tem maré baixa {date}",
+            "maré baixa {date}",
+            "maré baixa para {date}",
+            "que horas é a maré baixa",
+            "que horas é a maré baixa hoje",
+            "que horas tem maré baixa hoje",
+            "a que horas é a maré baixa",
+            "qual horário da maré baixa hoje",
+            "que horas a maré baixa hoje"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}
