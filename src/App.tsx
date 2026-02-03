@@ -17,7 +17,16 @@ function getCurrentMonthKey(): MonthKey {
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState<MonthKey>(getCurrentMonthKey());
+  const [filterLowTide, setFilterLowTide] = useState(false);
   const { data, isLoading, error } = useTideData(selectedMonth);
+
+  // Filtra dias que contêm maré muito baixa (< 0.2m)
+  const hasVeryLowTide = (tides: { height: number }[]) => 
+    tides.some(tide => tide.height < 0.2);
+
+  const filteredDays = data?.days.filter(day => 
+    !filterLowTide || hasVeryLowTide(day.tides)
+  );
 
   const todayCard = data?.days.find((day) =>
     isToday(data.year, data.month, day.day)
@@ -51,6 +60,8 @@ function App() {
           <MonthSelector
             selectedMonth={selectedMonth}
             onMonthChange={handleMonthChange}
+            filterLowTide={filterLowTide}
+            onFilterChange={setFilterLowTide}
           />
         </div>
       </div>
@@ -93,7 +104,7 @@ function App() {
               </h2>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {data.days.map((day) => (
+                {filteredDays?.map((day) => (
                   <DayCard
                     key={day.day}
                     day={day}
@@ -103,6 +114,11 @@ function App() {
                   />
                 ))}
               </div>
+              {filterLowTide && filteredDays?.length === 0 && (
+                <p className="text-center text-tide-500 py-8">
+                  Nenhum dia com maré muito baixa neste mês.
+                </p>
+              )}
             </section>
           </>
         )}
