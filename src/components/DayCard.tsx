@@ -51,7 +51,7 @@ export function DayCard({ day, year, month, isHighlighted = false, compact = fal
   return (
     <div
       className={`
-        relative rounded-xl p-4 md:p-5 transition-all duration-200
+        relative rounded-xl p-5 md:p-6 transition-all duration-200
         ${highlighted
           ? 'bg-white ring-2 ring-tide-500 shadow-lg'
           : 'bg-white shadow-sm hover:shadow-md'
@@ -75,8 +75,8 @@ export function DayCard({ day, year, month, isHighlighted = false, compact = fal
         </div>
       </div>
 
-      <div className="border-t border-tide-100 pt-3 md:pt-4">
-        <table className="w-full border-separate border-spacing-y-1">
+      <div className="border-t border-tide-100 pt-4 md:pt-5">
+        <table className="w-full border-separate border-spacing-y-2">
           <thead>
             <tr className="text-fluid-xs text-tide-500">
               <th className="text-left font-medium pb-2">Hora</th>

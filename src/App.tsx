@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Waves } from '@phosphor-icons/react';
+import { Waves, CaretDown } from '@phosphor-icons/react';
 import { MonthKey, MONTHS } from './types/tide';
 import { useTideData } from './hooks/useTideData';
 import { isToday } from './utils/tideHelpers';
@@ -21,10 +21,6 @@ function App() {
 
   const todayCard = data?.days.find((day) =>
     isToday(data.year, data.month, day.day)
-  );
-
-  const otherDays = data?.days.filter((day) =>
-    !isToday(data.year, data.month, day.day)
   );
 
   return (
@@ -65,17 +61,22 @@ function App() {
           <>
             {/* Today's Card - Highlighted at Top */}
             {todayCard && (
-              <section className="mb-8">
+              <section className="mb-6 sm:mb-8">
                 <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
                   Hoje
                 </h2>
-                <div className="max-w-sm mx-auto">
+                <div className="max-w-md sm:max-w-sm mx-auto">
                   <DayCard
                     day={todayCard}
                     year={data.year}
                     month={data.month}
                     isHighlighted
                   />
+                </div>
+                {/* Scroll indicator - mobile only */}
+                <div className="sm:hidden flex flex-col items-center mt-6 text-tide-400">
+                  <span className="text-fluid-sm">Deslize para ver mais</span>
+                  <CaretDown weight="bold" className="w-5 h-5 mt-1 animate-bounce" />
                 </div>
               </section>
             )}
@@ -86,13 +87,14 @@ function App() {
                 {data.monthName} {data.year}
               </h2>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {otherDays?.map((day) => (
+              <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {data.days.map((day) => (
                   <DayCard
                     key={day.day}
                     day={day}
                     year={data.year}
                     month={data.month}
+                    isHighlighted={isToday(data.year, data.month, day.day)}
                   />
                 ))}
               </div>
