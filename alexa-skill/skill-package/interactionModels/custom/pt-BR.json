@@ -45,13 +45,7 @@
           "slots": [
             {
               "name": "date",
-              "type": "AMAZON.DATE",
-              "samples": [
-                "para {date}",
-                "no dia {date}",
-                "em {date}",
-                "{date}"
-              ]
+              "type": "AMAZON.DATE"
             }
           ],
           "samples": [
@@ -64,7 +58,9 @@
             "me diga a maré de {date}",
             "horário das marés {date}",
             "qual a previsão da maré para {date}",
-            "e {date}",
+            "para {date}",
+            "no dia {date}",
+            "em {date}",
             "{date}"
           ]
         },
@@ -73,12 +69,7 @@
           "slots": [
             {
               "name": "date",
-              "type": "AMAZON.DATE",
-              "samples": [
-                "para {date}",
-                "no dia {date}",
-                "de {date}"
-              ]
+              "type": "AMAZON.DATE"
             }
           ],
           "samples": [
@@ -90,7 +81,10 @@
             "quando tem maré alta {date}",
             "maré alta {date}",
             "maré alta para {date}",
-            "que horas é a maré alta"
+            "que horas é a maré alta",
+            "maré alta para {date}",
+            "maré alta no dia {date}",
+            "maré alta de {date}"
           ]
         },
         {
@@ -98,12 +92,7 @@
           "slots": [
             {
               "name": "date",
-              "type": "AMAZON.DATE",
-              "samples": [
-                "para {date}",
-                "no dia {date}",
-                "de {date}"
-              ]
+              "type": "AMAZON.DATE"
             }
           ],
           "samples": [
@@ -120,7 +109,10 @@
             "que horas tem maré baixa hoje",
             "a que horas é a maré baixa",
             "qual horário da maré baixa hoje",
-            "que horas a maré baixa hoje"
+            "que horas a maré baixa hoje",
+            "maré baixa para {date}",
+            "maré baixa no dia {date}",
+            "maré baixa de {date}"
           ]
         }
       ],
