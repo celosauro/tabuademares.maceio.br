@@ -23,6 +23,11 @@ function App() {
     isToday(data.year, data.month, day.day)
   );
 
+  const handleMonthChange = (month: MonthKey) => {
+    setSelectedMonth(month);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100">
       {/* Header */}
@@ -45,7 +50,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 py-3">
           <MonthSelector
             selectedMonth={selectedMonth}
-            onMonthChange={setSelectedMonth}
+            onMonthChange={handleMonthChange}
           />
         </div>
       </div>
