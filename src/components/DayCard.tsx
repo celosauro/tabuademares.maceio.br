@@ -34,7 +34,7 @@ export function DayCard({ day, year, month, isHighlighted = false, compact = fal
         
         <div className="mb-4">
           <span className={`text-fluid-xl font-bold ${highlighted ? 'text-tide-700' : 'text-tide-600'}`}>
-            {day.day}
+            {String(day.day).padStart(2, '0')}
           </span>
         </div>
 
@@ -67,10 +67,10 @@ export function DayCard({ day, year, month, isHighlighted = false, compact = fal
       <div className="mb-3 md:mb-4">
         <div className="flex items-baseline gap-3">
           <span className={`text-fluid-2xl font-bold ${highlighted ? 'text-tide-700' : 'text-tide-600'}`}>
-            {day.day}
+            {String(day.day).padStart(2, '0')}
           </span>
-          <span className="text-fluid-sm text-tide-500">
-            {day.weekDay}
+          <span className={`text-fluid-base font-bold ${highlighted ? 'text-tide-700' : 'text-tide-600'}`}>
+            {day.weekDay === 'Sábado' || day.weekDay === 'Domingo' ? day.weekDay : `${day.weekDay}-feira`}
           </span>
         </div>
       </div>

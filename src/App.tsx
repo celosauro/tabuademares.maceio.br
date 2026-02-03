@@ -15,20 +15,7 @@ function getCurrentMonthKey(): MonthKey {
   return MONTHS[currentMonth].key;
 }
 
-const WEEKDAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-
-function getWeekdayIndex(weekDay: string): number {
-  const map: Record<string, number> = {
-    'Domingo': 0,
-    'Segunda': 1,
-    'Terça': 2,
-    'Quarta': 3,
-    'Quinta': 4,
-    'Sexta': 5,
-    'Sábado': 6,
-  };
-  return map[weekDay] ?? 0;
-}
+const WEEKDAYS_FULL = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState<MonthKey>(getCurrentMonthKey());
@@ -42,17 +29,18 @@ function App() {
     !isToday(data.year, data.month, day.day)
   );
 
-  // Calculate empty cells before first day (for desktop calendar)
-  const firstDayOffset = data?.days[0] ? getWeekdayIndex(data.days[0].weekDay) : 0;
-  const emptyCells = Array(firstDayOffset).fill(null);
+  // Get current day info for header
+  const today = new Date();
+  const currentDay = today.getDate().toString().padStart(2, '0');
+  const currentWeekday = WEEKDAYS_FULL[today.getDay()];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-3 py-3 md:px-4 md:py-4">
-          <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
-            <Waves weight="duotone" className="w-[1.5em] h-[1.5em] text-tide-500" />
+        <div className="max-w-7xl mx-auto px-4 py-4 md:py-5">
+          <div className="flex items-center gap-3">
+            <Waves weight="duotone" className="w-8 h-8 md:w-10 md:h-10 text-tide-500" />
             <div>
               <h1 className="text-fluid-xl font-bold text-tide-800">
                 Tábua de Marés
@@ -60,16 +48,22 @@ function App() {
               <p className="text-fluid-sm text-tide-500">Maceió, AL — 2026</p>
             </div>
           </div>
-          
+        </div>
+      </header>
+
+      {/* Month Selector - Separated container */}
+      <div className="bg-white shadow-sm border-b border-tide-100">
+        <div className="max-w-7xl mx-auto px-4 py-4">
           <MonthSelector
             selectedMonth={selectedMonth}
             onMonthChange={setSelectedMonth}
           />
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-3 py-4 md:px-4 md:py-6">
+      <main className="max-w-7xl mx-auto px-4 py-6">
+
         {isLoading && <LoadingSpinner />}
         
         {error && <ErrorMessage message={error} />}
@@ -78,11 +72,11 @@ function App() {
           <>
             {/* Today's Card - Highlighted at Top */}
             {todayCard && (
-              <section className="mb-6 md:mb-8">
-                <h2 className="text-fluid-lg font-semibold text-tide-700 mb-2 md:mb-3 text-center">
-                  Marés de Hoje
+              <section className="mb-8">
+                <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
+                  Hoje
                 </h2>
-                <div className="max-w-md mx-auto">
+                <div className="max-w-sm mx-auto">
                   <DayCard
                     day={todayCard}
                     year={data.year}
@@ -93,14 +87,13 @@ function App() {
               </section>
             )}
 
-            {/* Month Title */}
+            {/* Month Days List */}
             <section>
-              <h2 className="text-fluid-lg font-semibold text-tide-700 mb-3 md:mb-4 text-center">
+              <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
                 {data.monthName} {data.year}
               </h2>
               
-              {/* Mobile: List View */}
-              <div className="block md:hidden space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {otherDays?.map((day) => (
                   <DayCard
                     key={day.day}
@@ -110,48 +103,14 @@ function App() {
                   />
                 ))}
               </div>
-
-              {/* Desktop: Calendar Grid */}
-              <div className="hidden md:block">
-                {/* Weekday Headers */}
-                <div className="grid grid-cols-7 gap-3 mb-3">
-                  {WEEKDAYS.map((day) => (
-                    <div
-                      key={day}
-                      className="text-center text-fluid-sm font-semibold text-tide-600 py-2"
-                    >
-                      {day}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Calendar Days */}
-                <div className="grid grid-cols-7 gap-3">
-                  {/* Empty cells for offset */}
-                  {emptyCells.map((_, index) => (
-                    <div key={`empty-${index}`} className="min-h-[120px]" />
-                  ))}
-                  
-                  {/* Day cards */}
-                  {data.days.map((day) => (
-                    <DayCard
-                      key={day.day}
-                      day={day}
-                      year={data.year}
-                      month={data.month}
-                      compact
-                    />
-                  ))}
-                </div>
-              </div>
             </section>
           </>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-tide-100 mt-8 md:mt-12">
-        <div className="max-w-6xl mx-auto px-3 py-3 md:px-4 md:py-4 text-center text-fluid-sm text-tide-500">
+      <footer className="bg-white border-t border-tide-100 mt-8">
+        <div className="max-w-7xl mx-auto px-4 py-4 text-center text-fluid-sm text-tide-500">
           <p>© 2026 Tábua de Marés Maceió</p>
         </div>
       </footer>
