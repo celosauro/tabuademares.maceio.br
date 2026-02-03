@@ -40,7 +40,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100">
+    <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100 flex flex-col">
       {/* Header + Menu Selector - Combined sticky container */}
       <div className="sticky top-0 z-10">
         {/* Header */}
@@ -73,7 +73,7 @@ function App() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <main className="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
 
         {isLoading && <LoadingSpinner />}
         
@@ -149,7 +149,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-tide-100 mt-8">
+      <footer className="bg-white border-t border-tide-100 mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-4 text-center text-fluid-sm text-tide-500">
           <p>© 2026 Tábua de Marés Maceió</p>
         </div>
