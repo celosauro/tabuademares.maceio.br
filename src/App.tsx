@@ -40,9 +40,9 @@ function App() {
         </div>
       </header>
 
-      {/* Month Selector - Separated container */}
-      <div className="bg-white shadow-sm border-b border-tide-100">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+      {/* Month Selector - Sticky below header */}
+      <div className="bg-white shadow-sm border-b border-tide-100 sticky top-[72px] md:top-[84px] z-10">
+        <div className="max-w-7xl mx-auto px-4 py-3">
           <MonthSelector
             selectedMonth={selectedMonth}
             onMonthChange={setSelectedMonth}
