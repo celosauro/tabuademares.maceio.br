@@ -1,4 +1,4 @@
-import { CalendarBlank } from '@phosphor-icons/react';
+import { CalendarBlank, Table } from '@phosphor-icons/react';
 import { MonthKey, MONTHS } from '../types/tide';
 
 interface MonthSelectorProps {
@@ -6,13 +6,17 @@ interface MonthSelectorProps {
   onMonthChange: (month: MonthKey) => void;
   filterLowTide?: boolean;
   onFilterChange?: (value: boolean) => void;
+  viewMode?: 'cards' | 'table';
+  onViewModeChange?: (mode: 'cards' | 'table') => void;
 }
 
 export function MonthSelector({ 
   selectedMonth, 
   onMonthChange,
   filterLowTide = false,
-  onFilterChange 
+  onFilterChange,
+  viewMode = 'cards',
+  onViewModeChange
 }: MonthSelectorProps) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onMonthChange(e.target.value as MonthKey);
@@ -89,6 +93,36 @@ export function MonthSelector({
           </button>
           <span className="text-fluid-sm font-medium text-tide-600">
             Maré baixa
+          </span>
+        </label>
+      )}
+
+      {/* View Mode Toggle */}
+      {onViewModeChange && (
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <button
+            type="button"
+            role="switch"
+            aria-checked={viewMode === 'table'}
+            onClick={() => onViewModeChange(viewMode === 'cards' ? 'table' : 'cards')}
+            className={`
+              relative inline-flex h-6 w-11 items-center rounded-full
+              transition-colors duration-200 ease-in-out
+              focus:outline-none focus:ring-2 focus:ring-tide-200 focus:ring-offset-2
+              ${viewMode === 'table' ? 'bg-tide-500' : 'bg-tide-200'}
+            `}
+          >
+            <span
+              className={`
+                inline-block h-4 w-4 transform rounded-full bg-white shadow-sm
+                transition-transform duration-200 ease-in-out
+                ${viewMode === 'table' ? 'translate-x-6' : 'translate-x-1'}
+              `}
+            />
+          </button>
+          <span className="text-fluid-sm font-medium text-tide-600 flex items-center gap-1">
+            <Table weight={viewMode === 'table' ? 'fill' : 'regular'} className="w-4 h-4" />
+            <span className="hidden sm:inline">Tabela</span>
           </span>
         </label>
       )}

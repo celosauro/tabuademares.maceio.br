@@ -8,6 +8,7 @@ import {
   DayCard,
   LoadingSpinner,
   ErrorMessage,
+  TideTable,
 } from './components';
 
 function getCurrentMonthKey(): MonthKey {
@@ -18,6 +19,7 @@ function getCurrentMonthKey(): MonthKey {
 function App() {
   const [selectedMonth, setSelectedMonth] = useState<MonthKey>(getCurrentMonthKey());
   const [filterLowTide, setFilterLowTide] = useState(false);
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
   const { data, isLoading, error } = useTideData(selectedMonth);
 
   // Filtra dias que contêm maré muito baixa (< 0.2m)
@@ -59,6 +61,8 @@ function App() {
             onMonthChange={handleMonthChange}
             filterLowTide={filterLowTide}
             onFilterChange={setFilterLowTide}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
           />
         </div>
       </div>
@@ -72,8 +76,8 @@ function App() {
 
         {data && !isLoading && !error && (
           <>
-            {/* Today's Card - Highlighted at Top */}
-            {todayCard && (
+            {/* Today's Card - Highlighted at Top (only in cards view) */}
+            {todayCard && viewMode === 'cards' && (
               <section className="mb-6 sm:mb-8">
                 <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
                   Hoje
@@ -94,23 +98,41 @@ function App() {
               </section>
             )}
 
-            {/* Month Days List */}
-            <section>
+            {/* Month Title (only in table view) */}
+            {viewMode === 'table' && (
               <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
                 {data.monthName} {data.year}
               </h2>
+            )}
+
+            {/* Month Days List */}
+            <section>
+              {viewMode === 'cards' && (
+                <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
+                  {data.monthName} {data.year}
+                </h2>
+              )}
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {filteredDays?.map((day) => (
-                  <DayCard
-                    key={day.day}
-                    day={day}
-                    year={data.year}
-                    month={data.month}
-                    isHighlighted={isToday(data.year, data.month, day.day)}
-                  />
-                ))}
-              </div>
+              {viewMode === 'cards' ? (
+                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {filteredDays?.map((day) => (
+                    <DayCard
+                      key={day.day}
+                      day={day}
+                      year={data.year}
+                      month={data.month}
+                      isHighlighted={isToday(data.year, data.month, day.day)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <TideTable
+                  days={filteredDays || []}
+                  year={data.year}
+                  month={data.month}
+                />
+              )}
+              
               {filterLowTide && filteredDays?.length === 0 && (
                 <p className="text-center text-tide-500 py-8">
                   Nenhum dia com maré muito baixa neste mês.
