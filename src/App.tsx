@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Waves, CaretDown } from '@phosphor-icons/react';
 import { MonthKey, MONTHS } from './types/tide';
 import { useTideData } from './hooks/useTideData';
@@ -16,11 +16,21 @@ function getCurrentMonthKey(): MonthKey {
   return MONTHS[currentMonth].key;
 }
 
+function getStoredViewMode(): 'cards' | 'table' {
+  const stored = localStorage.getItem('viewMode');
+  return stored === 'table' ? 'table' : 'cards';
+}
+
 function App() {
   const [selectedMonth, setSelectedMonth] = useState<MonthKey>(getCurrentMonthKey());
   const [filterLowTide, setFilterLowTide] = useState(false);
-  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>(getStoredViewMode);
   const { data, isLoading, error } = useTideData(selectedMonth);
+
+  // Salva o modo de visualização no localStorage
+  useEffect(() => {
+    localStorage.setItem('viewMode', viewMode);
+  }, [viewMode]);
 
   // Filtra dias que contêm maré muito baixa (< 0.2m)
   const hasVeryLowTide = (tides: { height: number }[]) => 
