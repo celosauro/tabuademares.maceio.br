@@ -1,0 +1,285 @@
+{
+  "ano": 2026,
+  "mes": 2,
+  "mesNome": "Fevereiro",
+  "fonte": "https://www.salinas.com.br/pt/maceio/tabua-de-mares",
+  "dataExtracao": "2026-01-31",
+  "dias": [
+    {
+      "dia": 1,
+      "diaSemana": "Domingo",
+      "mares": [
+        { "hora": "03:26", "altura": 2.18 },
+        { "hora": "09:31", "altura": 0.36 },
+        { "hora": "15:35", "altura": 2.32 },
+        { "hora": "21:58", "altura": 0.13 }
+      ]
+    },
+    {
+      "dia": 2,
+      "diaSemana": "Segunda",
+      "mares": [
+        { "hora": "04:07", "altura": 2.23 },
+        { "hora": "10:10", "altura": 0.32 },
+        { "hora": "16:15", "altura": 2.39 },
+        { "hora": "22:37", "altura": 0.13 }
+      ]
+    },
+    {
+      "dia": 3,
+      "diaSemana": "Terça",
+      "mares": [
+        { "hora": "04:44", "altura": 2.23 },
+        { "hora": "10:46", "altura": 0.33 },
+        { "hora": "16:52", "altura": 2.38 },
+        { "hora": "23:14", "altura": 0.19 }
+      ]
+    },
+    {
+      "dia": 4,
+      "diaSemana": "Quarta",
+      "mares": [
+        { "hora": "05:19", "altura": 2.18 },
+        { "hora": "11:21", "altura": 0.38 },
+        { "hora": "17:28", "altura": 2.31 },
+        { "hora": "23:48", "altura": 0.30 }
+      ]
+    },
+    {
+      "dia": 5,
+      "diaSemana": "Quinta",
+      "mares": [
+        { "hora": "05:52", "altura": 2.09 },
+        { "hora": "11:55", "altura": 0.46 },
+        { "hora": "18:03", "altura": 2.18 }
+      ]
+    },
+    {
+      "dia": 6,
+      "diaSemana": "Sexta",
+      "mares": [
+        { "hora": "00:21", "altura": 0.44 },
+        { "hora": "06:25", "altura": 1.99 },
+        { "hora": "12:29", "altura": 0.56 },
+        { "hora": "18:39", "altura": 2.03 }
+      ]
+    },
+    {
+      "dia": 7,
+      "diaSemana": "Sábado",
+      "mares": [
+        { "hora": "00:54", "altura": 0.59 },
+        { "hora": "07:00", "altura": 1.86 },
+        { "hora": "13:06", "altura": 0.67 },
+        { "hora": "19:18", "altura": 1.85 }
+      ]
+    },
+    {
+      "dia": 8,
+      "diaSemana": "Domingo",
+      "mares": [
+        { "hora": "01:31", "altura": 0.74 },
+        { "hora": "07:39", "altura": 1.74 },
+        { "hora": "13:50", "altura": 0.79 },
+        { "hora": "20:05", "altura": 1.68 }
+      ]
+    },
+    {
+      "dia": 9,
+      "diaSemana": "Segunda",
+      "mares": [
+        { "hora": "02:17", "altura": 0.88 },
+        { "hora": "08:30", "altura": 1.61 },
+        { "hora": "14:54", "altura": 0.89 },
+        { "hora": "21:14", "altura": 1.54 }
+      ]
+    },
+    {
+      "dia": 10,
+      "diaSemana": "Terça",
+      "mares": [
+        { "hora": "03:33", "altura": 0.99 },
+        { "hora": "09:47", "altura": 1.53 },
+        { "hora": "16:35", "altura": 0.93 },
+        { "hora": "22:55", "altura": 1.49 }
+      ]
+    },
+    {
+      "dia": 11,
+      "diaSemana": "Quarta",
+      "mares": [
+        { "hora": "05:24", "altura": 1.00 },
+        { "hora": "11:26", "altura": 1.53 },
+        { "hora": "18:14", "altura": 0.86 }
+      ]
+    },
+    {
+      "dia": 12,
+      "diaSemana": "Quinta",
+      "mares": [
+        { "hora": "00:28", "altura": 1.56 },
+        { "hora": "06:46", "altura": 0.92 },
+        { "hora": "12:43", "altura": 1.63 },
+        { "hora": "19:16", "altura": 0.74 }
+      ]
+    },
+    {
+      "dia": 13,
+      "diaSemana": "Sexta",
+      "mares": [
+        { "hora": "01:27", "altura": 1.68 },
+        { "hora": "07:37", "altura": 0.79 },
+        { "hora": "13:35", "altura": 1.77 },
+        { "hora": "20:01", "altura": 0.60 }
+      ]
+    },
+    {
+      "dia": 14,
+      "diaSemana": "Sábado",
+      "mares": [
+        { "hora": "02:09", "altura": 1.82 },
+        { "hora": "08:16", "altura": 0.67 },
+        { "hora": "14:15", "altura": 1.93 },
+        { "hora": "20:37", "altura": 0.47 }
+      ]
+    },
+    {
+      "dia": 15,
+      "diaSemana": "Domingo",
+      "mares": [
+        { "hora": "02:44", "altura": 1.95 },
+        { "hora": "08:49", "altura": 0.55 },
+        { "hora": "14:50", "altura": 2.08 },
+        { "hora": "21:10", "altura": 0.36 }
+      ]
+    },
+    {
+      "dia": 16,
+      "diaSemana": "Segunda",
+      "mares": [
+        { "hora": "03:16", "altura": 2.07 },
+        { "hora": "09:20", "altura": 0.46 },
+        { "hora": "15:23", "altura": 2.22 },
+        { "hora": "21:42", "altura": 0.26 }
+      ]
+    },
+    {
+      "dia": 17,
+      "diaSemana": "Terça",
+      "mares": [
+        { "hora": "03:48", "altura": 2.17 },
+        { "hora": "09:51", "altura": 0.38 },
+        { "hora": "15:56", "altura": 2.32 },
+        { "hora": "22:14", "altura": 0.21 }
+      ]
+    },
+    {
+      "dia": 18,
+      "diaSemana": "Quarta",
+      "mares": [
+        { "hora": "04:20", "altura": 2.24 },
+        { "hora": "10:23", "altura": 0.33 },
+        { "hora": "16:30", "altura": 2.38 },
+        { "hora": "22:46", "altura": 0.19 }
+      ]
+    },
+    {
+      "dia": 19,
+      "diaSemana": "Quinta",
+      "mares": [
+        { "hora": "04:53", "altura": 2.26 },
+        { "hora": "10:56", "altura": 0.31 },
+        { "hora": "17:05", "altura": 2.38 },
+        { "hora": "23:20", "altura": 0.22 }
+      ]
+    },
+    {
+      "dia": 20,
+      "diaSemana": "Sexta",
+      "mares": [
+        { "hora": "05:28", "altura": 2.23 },
+        { "hora": "11:31", "altura": 0.33 },
+        { "hora": "17:42", "altura": 2.31 },
+        { "hora": "23:56", "altura": 0.31 }
+      ]
+    },
+    {
+      "dia": 21,
+      "diaSemana": "Sábado",
+      "mares": [
+        { "hora": "06:04", "altura": 2.15 },
+        { "hora": "12:09", "altura": 0.40 },
+        { "hora": "18:22", "altura": 2.18 }
+      ]
+    },
+    {
+      "dia": 22,
+      "diaSemana": "Domingo",
+      "mares": [
+        { "hora": "00:35", "altura": 0.44 },
+        { "hora": "06:44", "altura": 2.03 },
+        { "hora": "12:52", "altura": 0.50 },
+        { "hora": "19:09", "altura": 2.01 }
+      ]
+    },
+    {
+      "dia": 23,
+      "diaSemana": "Segunda",
+      "mares": [
+        { "hora": "01:20", "altura": 0.61 },
+        { "hora": "07:31", "altura": 1.87 },
+        { "hora": "13:45", "altura": 0.63 },
+        { "hora": "20:08", "altura": 1.81 }
+      ]
+    },
+    {
+      "dia": 24,
+      "diaSemana": "Terça",
+      "mares": [
+        { "hora": "02:20", "altura": 0.79 },
+        { "hora": "08:34", "altura": 1.71 },
+        { "hora": "15:02", "altura": 0.75 },
+        { "hora": "21:33", "altura": 1.66 }
+      ]
+    },
+    {
+      "dia": 25,
+      "diaSemana": "Quarta",
+      "mares": [
+        { "hora": "03:55", "altura": 0.91 },
+        { "hora": "10:07", "altura": 1.63 },
+        { "hora": "16:55", "altura": 0.77 },
+        { "hora": "23:24", "altura": 1.64 }
+      ]
+    },
+    {
+      "dia": 26,
+      "diaSemana": "Quinta",
+      "mares": [
+        { "hora": "05:48", "altura": 0.89 },
+        { "hora": "11:50", "altura": 1.70 },
+        { "hora": "18:30", "altura": 0.65 }
+      ]
+    },
+    {
+      "dia": 27,
+      "diaSemana": "Sexta",
+      "mares": [
+        { "hora": "00:51", "altura": 1.77 },
+        { "hora": "07:03", "altura": 0.75 },
+        { "hora": "13:04", "altura": 1.87 },
+        { "hora": "19:33", "altura": 0.48 }
+      ]
+    },
+    {
+      "dia": 28,
+      "diaSemana": "Sábado",
+      "mares": [
+        { "hora": "01:49", "altura": 1.93 },
+        { "hora": "07:55", "altura": 0.60 },
+        { "hora": "13:57", "altura": 2.07 },
+        { "hora": "20:21", "altura": 0.32 }
+      ]
+    }
+  ]
+}
