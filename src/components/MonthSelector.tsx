@@ -1,4 +1,4 @@
-import { CalendarBlank, ListBullets } from '@phosphor-icons/react';
+import { CalendarBlank, ListBullets, Info } from '@phosphor-icons/react';
 import { MonthKey, MONTHS } from '../types/tide';
 
 interface MonthSelectorProps {
@@ -23,11 +23,12 @@ export function MonthSelector({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-      {/* Month Select */}
-      <div className="flex items-center gap-3">
-        <label htmlFor="month-selector" className="text-fluid-sm font-medium text-tide-600 flex items-center gap-2">
-          <CalendarBlank weight="duotone" className="w-5 h-5 text-tide-500" />
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
+        {/* Month Select */}
+        <div className="flex items-center gap-3">
+          <label htmlFor="month-selector" className="text-fluid-sm font-medium text-tide-600 flex items-center gap-2">
+            <CalendarBlank weight="duotone" className="w-5 h-5 text-tide-500" />
           Mês
         </label>
         <div className="relative">
@@ -76,7 +77,10 @@ export function MonthSelector({
       <div className="flex items-center gap-4 sm:gap-6">
         {/* Low Tide Filter */}
         {onFilterChange && (
-          <label className="flex items-center gap-2 cursor-pointer select-none">
+          <label 
+            className="flex items-center gap-2 cursor-pointer select-none"
+            title="Filtra dias com maré muito baixa (altura menor que 0,2m)"
+          >
             <button
               type="button"
               role="switch"
@@ -133,6 +137,15 @@ export function MonthSelector({
           </label>
         )}
       </div>
+      </div>
+
+      {/* Info Block - shown when low tide filter is active */}
+      {filterLowTide && (
+        <div className="flex items-center justify-center gap-2 bg-tide-100 text-tide-700 px-4 py-2 rounded-lg text-fluid-sm">
+          <Info weight="fill" className="w-4 h-4 text-tide-500 flex-shrink-0" />
+          <span>Exibindo apenas dias com maré muito baixa (altura menor que 0,2m)</span>
+        </div>
+      )}
     </div>
   );
 }
