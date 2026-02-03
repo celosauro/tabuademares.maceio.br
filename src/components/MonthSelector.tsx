@@ -12,7 +12,7 @@ export function MonthSelector({ selectedMonth, onMonthChange }: MonthSelectorPro
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center justify-center gap-3">
       <label htmlFor="month-selector" className="text-fluid-sm font-medium text-tide-600 flex items-center gap-2">
         <CalendarBlank weight="duotone" className="w-5 h-5 text-tide-500" />
         Mês
@@ -25,14 +25,16 @@ export function MonthSelector({ selectedMonth, onMonthChange }: MonthSelectorPro
           className="
             appearance-none
             bg-white border-2 border-tide-200 rounded-xl
-            pl-4 pr-10 py-2.5
-            text-fluid-base font-medium text-tide-700
+            pl-4 pr-10 py-3
+            text-base font-medium text-tide-700
             focus:outline-none focus:border-tide-500 focus:ring-2 focus:ring-tide-200
             hover:border-tide-300
             transition-all duration-200
             cursor-pointer
-            min-w-[160px]
+            min-w-[180px]
+            [&>option]:text-base [&>option]:py-2 [&>option]:text-gray-900
           "
+          style={{ fontSize: '16px' }}
         >
           {MONTHS.map((month) => (
             <option key={month.key} value={month.key}>
