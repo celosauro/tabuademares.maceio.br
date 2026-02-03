@@ -23,7 +23,7 @@ export function MonthSelector({
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 sm:gap-6">
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
       {/* Month Select */}
       <div className="flex items-center gap-3">
         <label htmlFor="month-selector" className="text-fluid-sm font-medium text-tide-600 flex items-center gap-2">
@@ -68,64 +68,71 @@ export function MonthSelector({
         </div>
       </div>
 
-      {/* Low Tide Filter */}
-      {onFilterChange && (
-        <label className="flex items-center gap-2 cursor-pointer select-none">
-          <button
-            type="button"
-            role="switch"
-            aria-checked={filterLowTide}
-            onClick={() => onFilterChange(!filterLowTide)}
-            className={`
-              relative inline-flex h-6 w-11 items-center rounded-full
-              transition-colors duration-200 ease-in-out
-              focus:outline-none focus:ring-2 focus:ring-tide-200 focus:ring-offset-2
-              ${filterLowTide ? 'bg-tide-500' : 'bg-tide-200'}
-            `}
-          >
-            <span
-              className={`
-                inline-block h-4 w-4 transform rounded-full bg-white shadow-sm
-                transition-transform duration-200 ease-in-out
-                ${filterLowTide ? 'translate-x-6' : 'translate-x-1'}
-              `}
-            />
-          </button>
-          <span className="text-fluid-sm font-medium text-tide-600">
-            Maré baixa
-          </span>
-        </label>
-      )}
+      {/* Separator */}
+      <div className="hidden sm:block w-px h-8 bg-tide-200" />
+      <div className="sm:hidden w-full h-px bg-tide-200" />
 
-      {/* View Mode Toggle */}
-      {onViewModeChange && (
-        <label className="flex items-center gap-2 cursor-pointer select-none">
-          <button
-            type="button"
-            role="switch"
-            aria-checked={viewMode === 'table'}
-            onClick={() => onViewModeChange(viewMode === 'cards' ? 'table' : 'cards')}
-            className={`
-              relative inline-flex h-6 w-11 items-center rounded-full
-              transition-colors duration-200 ease-in-out
-              focus:outline-none focus:ring-2 focus:ring-tide-200 focus:ring-offset-2
-              ${viewMode === 'table' ? 'bg-tide-500' : 'bg-tide-200'}
-            `}
-          >
-            <span
+      {/* Toggles Container - abaixo no mobile, ao lado no desktop */}
+      <div className="flex items-center gap-4 sm:gap-6">
+        {/* Low Tide Filter */}
+        {onFilterChange && (
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={filterLowTide}
+              onClick={() => onFilterChange(!filterLowTide)}
               className={`
-                inline-block h-4 w-4 transform rounded-full bg-white shadow-sm
-                transition-transform duration-200 ease-in-out
-                ${viewMode === 'table' ? 'translate-x-6' : 'translate-x-1'}
+                relative inline-flex h-6 w-11 items-center rounded-full
+                transition-colors duration-200 ease-in-out
+                focus:outline-none focus:ring-2 focus:ring-tide-200 focus:ring-offset-2
+                ${filterLowTide ? 'bg-tide-500' : 'bg-tide-200'}
               `}
-            />
-          </button>
-          <span className="text-fluid-sm font-medium text-tide-600 flex items-center gap-1">
-            <ListBullets weight={viewMode === 'table' ? 'fill' : 'regular'} className="w-4 h-4" />
-            <span className="hidden sm:inline">Lista</span>
-          </span>
-        </label>
-      )}
+            >
+              <span
+                className={`
+                  inline-block h-4 w-4 transform rounded-full bg-white shadow-sm
+                  transition-transform duration-200 ease-in-out
+                  ${filterLowTide ? 'translate-x-6' : 'translate-x-1'}
+                `}
+              />
+            </button>
+            <span className="text-fluid-sm font-medium text-tide-600">
+              Maré baixa
+            </span>
+          </label>
+        )}
+
+        {/* View Mode Toggle */}
+        {onViewModeChange && (
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={viewMode === 'table'}
+              onClick={() => onViewModeChange(viewMode === 'cards' ? 'table' : 'cards')}
+              className={`
+                relative inline-flex h-6 w-11 items-center rounded-full
+                transition-colors duration-200 ease-in-out
+                focus:outline-none focus:ring-2 focus:ring-tide-200 focus:ring-offset-2
+                ${viewMode === 'table' ? 'bg-tide-500' : 'bg-tide-200'}
+              `}
+            >
+              <span
+                className={`
+                  inline-block h-4 w-4 transform rounded-full bg-white shadow-sm
+                  transition-transform duration-200 ease-in-out
+                  ${viewMode === 'table' ? 'translate-x-6' : 'translate-x-1'}
+                `}
+              />
+            </button>
+            <span className="text-fluid-sm font-medium text-tide-600 flex items-center gap-1">
+              <ListBullets weight={viewMode === 'table' ? 'fill' : 'regular'} className="w-4 h-4" />
+              Modo Lista
+            </span>
+          </label>
+        )}
+      </div>
     </div>
   );
 }
