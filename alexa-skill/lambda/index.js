@@ -23,9 +23,20 @@ function getTidesForDate(date) {
   const day = date.getDate();
   
   const monthData = loadTideData(year, month);
-  if (!monthData) return null;
+  if (!monthData || !monthData.dias) return null;
   
-  return monthData.days.find(d => d.day === day);
+  const dayData = monthData.dias.find(d => d.dia === day);
+  if (!dayData) return null;
+  
+  // Normalize to English field names for consistency in handlers
+  return {
+    day: dayData.dia,
+    weekDay: dayData.diaSemana,
+    tides: dayData.mares.map(m => ({
+      time: m.hora,
+      height: m.altura
+    }))
+  };
 }
 
 // Helper function to parse Alexa date slot
