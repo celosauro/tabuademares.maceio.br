@@ -15,8 +15,6 @@ function getCurrentMonthKey(): MonthKey {
   return MONTHS[currentMonth].key;
 }
 
-const WEEKDAYS_FULL = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-
 function App() {
   const [selectedMonth, setSelectedMonth] = useState<MonthKey>(getCurrentMonthKey());
   const { data, isLoading, error } = useTideData(selectedMonth);
@@ -28,11 +26,6 @@ function App() {
   const otherDays = data?.days.filter((day) =>
     !isToday(data.year, data.month, day.day)
   );
-
-  // Get current day info for header
-  const today = new Date();
-  const currentDay = today.getDate().toString().padStart(2, '0');
-  const currentWeekday = WEEKDAYS_FULL[today.getDay()];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100">
