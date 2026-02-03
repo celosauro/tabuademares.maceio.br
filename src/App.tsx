@@ -44,12 +44,9 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 py-4 md:py-5">
           <div className="flex items-center gap-3">
             <Waves weight="duotone" className="w-8 h-8 md:w-10 md:h-10 text-tide-500" />
-            <div>
-              <h1 className="text-fluid-xl font-bold text-tide-800">
-                Tábua de Marés
-              </h1>
-              <p className="text-fluid-sm text-tide-500">Maceió, AL — 2026</p>
-            </div>
+            <h1 className="text-fluid-xl font-bold text-tide-800">
+              Tábua de Marés - Maceió
+            </h1>
           </div>
         </div>
       </header>
