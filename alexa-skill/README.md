@@ -6,6 +6,10 @@ Skill para consulta de horários e alturas das marés em Maceió, Alagoas.
 
 ```
 alexa-skill/
+├── icons/
+│   ├── icon.svg              # Ícone fonte (SVG)
+│   ├── icon-108x108.png      # Ícone pequeno (obrigatório)
+│   └── icon-512x512.png      # Ícone grande (obrigatório)
 ├── lambda/
 │   ├── index.js              # Handler principal da skill
 │   ├── package.json          # Dependências Node.js
@@ -161,8 +165,10 @@ zip -r ../lambda.zip .
 | **Keywords** | maré, marés, tábua, maceió, alagoas, praia, pesca, surf |
 
 3. **Ícones** (obrigatório):
-   - Small Icon: 108x108 PNG
-   - Large Icon: 512x512 PNG
+   - Small Icon: 108x108 PNG → upload `icons/icon-108x108.png`
+   - Large Icon: 512x512 PNG → upload `icons/icon-512x512.png`
+
+**Nota:** Os ícones já estão prontos na pasta `icons/` com fundo branco e ondas azuis na paleta do site (tide-500 e tide-200).
 
 ---
 
@@ -204,23 +210,33 @@ zip -r ../lambda.zip .
 
 ## Atualização da Skill
 
-Para atualizar o código:
+### Atualizar código Lambda
 
-1. Faça as alterações em `lambda/index.js`
-2. Gere novo ZIP:
-   ```bash
-   cd lambda
-   npm install
-   zip -r ../lambda.zip .
-   ```
-3. Faça upload na AWS Lambda
-4. A skill é atualizada automaticamente
+```bash
+cd alexa-skill/lambda
+npm install
+zip -r ../lambda.zip .
+```
 
-Para atualizar o modelo de interação:
+Faça upload do `lambda.zip` na AWS Lambda.
+
+### Atualizar modelo de interação
 
 1. Edite `skill-package/interactionModels/custom/pt-BR.json`
-2. Cole o JSON no Alexa Developer Console
+2. Cole o JSON no Alexa Developer Console → **Interaction Model** → **JSON Editor**
 3. Clique em **Save Model** e **Build Model**
+
+### Atualizar ícones
+
+Os ícones fonte estão em `icons/icon.svg`. Para regenerar os PNGs:
+
+```bash
+cd alexa-skill/icons
+magick -background none -density 300 icon.svg -resize 512x512 icon-512x512.png
+magick -background none -density 300 icon.svg -resize 108x108 icon-108x108.png
+```
+
+**Requisitos:** ImageMagick instalado (`brew install imagemagick` no macOS).
 
 ---
 
@@ -241,3 +257,31 @@ Para uso pessoal e baixo volume, o custo será **zero**.
 - [Documentação ASK SDK](https://developer.amazon.com/docs/alexa-skills-kit-sdk-for-nodejs/overview.html)
 - [Alexa Developer Forums](https://developer.amazon.com/support)
 - [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/)
+
+---
+
+## Troubleshooting
+
+### Erro "Cannot find module"
+
+Certifique-se de que o `node_modules` está incluído no ZIP:
+
+```bash
+cd alexa-skill/lambda
+rm -rf node_modules
+npm install
+zip -r ../lambda.zip .
+```
+
+### Skill não responde
+
+1. Verifique se o Skill ID está configurado corretamente no trigger da Lambda
+2. Teste a Lambda diretamente com os eventos de teste em `lambda/test-events/`
+3. Verifique os logs no CloudWatch
+
+### Dados não encontrados
+
+Os dados de marés devem estar em `lambda/data/2026/` com nomenclatura em inglês:
+- `january_2026.json`, `february_2026.json`, etc.
+
+Os campos JSON internos estão em português: `dias`, `dia`, `diaSemana`, `mares`, `hora`, `altura`.

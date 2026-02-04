@@ -4,12 +4,22 @@
 
 Aplicação React SPA para exibição de tábua de marés de Maceió/AL - 2026.
 
+🌐 **Site:** [tabuademares.maceio.br](https://tabuademares.maceio.br)
+
 ## Stack
 
 - React 18 + TypeScript
 - Vite (build tool)
 - Tailwind CSS (estilização)
-- Phosphor Icons (ícones)
+- Phosphor Icons (ícones: Waves, CalendarBlank, ListBullets, Info)
+
+## Funcionalidades
+
+- **Visualização cards/lista** - Toggle para alternar modos (persistido em localStorage)
+- **Filtro de maré baixa** - Exibe apenas dias com maré muito baixa (< 0.2m)
+- **Destaque do dia atual** - Card/linha destacado com borda azul
+- **Navegação por mês** - Seletor de mês acessível
+- **Skill Alexa** - Consulta por voz (pasta `alexa-skill/`)
 
 ## Convenções de Código
 
@@ -25,6 +35,13 @@ Aplicação React SPA para exibição de tábua de marés de Maceió/AL - 2026.
 - Props destructuring com valores default
 - Componentes em arquivos separados em `src/components/`
 - Barrel export via `index.ts`
+
+**Principais componentes:**
+- `DayCard` - Card de dia com marés
+- `TideTable` - Visualização em lista/tabela responsiva
+- `TideReading` - Leitura individual (hora + altura)
+- `MonthSelector` - Select de mês + toggles de filtro/modo
+- `LoadingSpinner` / `ErrorMessage` - Estados de UI
 
 ### Estilização
 
@@ -81,17 +98,19 @@ max-w-7xl mx-auto px-4
   "year": 2026,
   "month": 2,
   "monthName": "Fevereiro",
-  "days": [
+  "dias": [
     {
-      "day": 1,
-      "weekDay": "Domingo",
-      "tides": [
-        { "time": "04:07", "height": 2.23 }
+      "dia": 1,
+      "diaSemana": "Domingo",
+      "mares": [
+        { "hora": "04:07", "altura": 2.23 }
       ]
     }
   ]
 }
 ```
+
+**Nota:** Campos em português: `dias`, `dia`, `diaSemana`, `mares`, `hora`, `altura`
 
 ### Lazy Loading
 
@@ -100,12 +119,18 @@ Dados carregados por mês via dynamic import:
 const data = await import(`../data/2026/${month}_2026.json`);
 ```
 
+### Persistência
+
+- `localStorage.getItem('tideViewMode')` - Modo de visualização ('cards' | 'table')
+
 ## Regras de Negócio
 
 - Maré alta: altura ≥ 1.2m
 - Maré baixa: altura < 1.2m
+- Maré muito baixa: altura < 0.2m (usado no filtro)
 - Dia formatado com 2 dígitos: `01`, `02`, etc.
 - Dia da semana: completo + "-feira" (exceto Sábado/Domingo)
+- Abreviações mobile: Seg, Ter, Qua, Qui, Sex, Sáb, Dom
 
 ## Acessibilidade
 
@@ -113,6 +138,7 @@ const data = await import(`../data/2026/${month}_2026.json`);
 - Labels associados a inputs
 - `font-size: 16px` mínimo em inputs (evita zoom iOS)
 - `aria-label` em ícones
+- `role="switch"` e `aria-checked` em toggles
 - Contraste adequado de cores
 
 ## Idioma
@@ -120,3 +146,12 @@ const data = await import(`../data/2026/${month}_2026.json`);
 - Interface 100% em Português (pt-BR)
 - Nomes de meses em português
 - Dias da semana em português
+
+## Alexa Skill
+
+A pasta `alexa-skill/` contém:
+- `lambda/` - Código Node.js para AWS Lambda
+- `skill-package/` - Modelo de interação pt-BR
+- `icons/` - Ícones para publicação (SVG fonte + PNGs)
+
+Dados da Alexa também usam campos em português nos JSONs.
