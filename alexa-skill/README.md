@@ -6,6 +6,7 @@ Skill para consulta de horários e alturas das marés em Maceió, Alagoas.
 
 ```
 alexa-skill/
+├── lambda.zip                # Pacote pronto para deploy na AWS Lambda
 ├── icons/
 │   ├── icon.svg              # Ícone fonte (SVG)
 │   ├── icon-108x108.png      # Ícone pequeno (obrigatório)
@@ -23,14 +24,55 @@ alexa-skill/
 
 ## Comandos de Voz Disponíveis
 
-| Comando | Descrição |
-|---------|-----------|
-| "Alexa, abrir tábua de marés" | Abre a skill |
-| "Qual a maré de hoje?" | Todas as marés do dia |
-| "Qual a maré de amanhã?" | Marés de amanhã |
-| "Quando é a maré alta?" | Horários de maré alta |
-| "Que horas é a maré baixa hoje?" | Horários de maré baixa |
-| "Maré para sexta-feira" | Marés de uma data específica |
+### Marés do dia (GetTodayTidesIntent)
+
+| Comando | Exemplo |
+|---------|---------|
+| Comando simples | "Alexa, maré" |
+| Pergunta direta | "Alexa, qual a maré de hoje?" |
+| Coloquial | "Alexa, como tá a maré?" |
+| Com local | "Alexa, maré maceió" |
+| Tábua | "Alexa, tábua de marés" |
+
+### Marés por data (GetTidesByDateIntent)
+
+| Comando | Exemplo |
+|---------|---------|
+| Amanhã | "Alexa, maré amanhã" |
+| Data específica | "Alexa, maré para sexta-feira" |
+| Pergunta | "Alexa, qual a maré de sábado?" |
+
+### Maré Alta (GetHighTideIntent)
+
+| Comando | Exemplo |
+|---------|---------|
+| Simples | "Alexa, maré alta" |
+| Sinônimo | "Alexa, maré cheia" |
+| Termo náutico | "Alexa, preamar" |
+| Pergunta | "Alexa, quando é a maré alta?" |
+| Com verbo | "Alexa, quando enche a maré?" |
+| Horário | "Alexa, que horas a maré alta?" |
+
+### Maré Baixa (GetLowTideIntent)
+
+| Comando | Exemplo |
+|---------|---------|
+| Simples | "Alexa, maré baixa" |
+| Sinônimo | "Alexa, maré seca" |
+| Termo náutico | "Alexa, baixamar" |
+| Pergunta | "Alexa, quando é a maré baixa?" |
+| Com verbo | "Alexa, quando seca a maré?" |
+| Horário | "Alexa, que horas a maré baixa hoje?" |
+
+---
+
+## Funcionalidades
+
+- ✅ **Name-Free Interaction (NFI)**: Perguntas diretas sem precisar abrir a skill
+- ✅ **CanFulfillIntentRequest**: Alexa identifica automaticamente a skill para perguntas sobre maré
+- ✅ **Termos náuticos**: Suporte a "preamar", "baixamar", "maré cheia", "maré seca"
+- ✅ **Variações coloquiais**: "como tá a maré", "quando enche", "quando seca"
+- ✅ **Datas flexíveis**: Amanhã, próxima semana, dias da semana, datas específicas
 
 ---
 
@@ -54,16 +96,17 @@ alexa-skill/
    - **Architecture**: `x86_64`
 4. Clique em **Create function**
 
-#### 1.1 Preparar e Enviar o Código
-
-```bash
-cd alexa-skill/lambda
-npm install
-zip -r ../lambda.zip .
-```
+#### 1.1 Enviar o Código
 
 5. Na função Lambda, vá em **Code** → **Upload from** → **.zip file**
-6. Faça upload do arquivo `lambda.zip`
+6. Faça upload do arquivo `lambda.zip` (já incluído no repositório)
+
+> **Nota**: O `lambda.zip` já vem pronto com código e dependências. Para regenerar:
+> ```bash
+> cd alexa-skill/lambda
+> npm install
+> zip -r ../lambda.zip . -x "*.DS_Store" -x "test-events/*"
+> ```
 
 #### 1.2 Configurar Timeout
 
@@ -144,8 +187,11 @@ zip -r ../lambda.zip .
 3. Digite ou fale:
    ```
    abrir tábua de marés
+   maré
    qual a maré de hoje
-   quando é a maré baixa
+   maré baixa
+   quando enche a maré
+   preamar
    ```
 
 ---
@@ -159,10 +205,10 @@ zip -r ../lambda.zip .
 |-------|-------|
 | **Public Name** | Tábua de Marés Maceió |
 | **One Sentence Description** | Consulte os horários e alturas das marés em Maceió, Alagoas. |
-| **Detailed Description** | A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos. |
-| **Example Phrases** | "Alexa, abrir tábua de marés", "Qual a maré de hoje", "Quando é a maré alta" |
+| **Detailed Description** | A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos. Suporta termos como "maré cheia", "maré seca", "preamar" e "baixamar". |
+| **Example Phrases** | "Alexa, maré", "Alexa, qual a maré de hoje", "Alexa, quando é a maré baixa" |
 | **Category** | Weather |
-| **Keywords** | maré, marés, tábua, maceió, alagoas, praia, pesca, surf |
+| **Keywords** | maré, marés, tábua, maceió, alagoas, praia, pesca, surf, preamar, baixamar |
 
 3. **Ícones** (obrigatório):
    - Small Icon: 108x108 PNG → upload `icons/icon-108x108.png`
@@ -189,7 +235,19 @@ zip -r ../lambda.zip .
 
 ---
 
-### Passo 9: Validação e Submissão
+### Passo 9: Habilitar Name-Free Interaction (Opcional)
+
+Para que a Alexa responda a perguntas diretas como "Alexa, maré" sem precisar invocar a skill:
+
+1. Vá em **Build** → **Interfaces**
+2. Habilite **Can Fulfill Intent Request**
+3. Reconstrua o modelo (**Build Model**)
+
+> **Nota:** O código Lambda já inclui o `CanFulfillIntentRequestHandler`. A Amazon pode precisar aprovar sua skill para NFI.
+
+---
+
+### Passo 10: Validação e Submissão
 
 1. Vá em **Certification** → **Validation**
 2. Clique em **Run** para validar
@@ -199,7 +257,7 @@ zip -r ../lambda.zip .
 
 ---
 
-### Passo 10: Aguardar Aprovação
+### Passo 11: Aguardar Aprovação
 
 - A Amazon revisa em **1-5 dias úteis**
 - Você receberá email com aprovação ou feedback
@@ -215,7 +273,7 @@ zip -r ../lambda.zip .
 ```bash
 cd alexa-skill/lambda
 npm install
-zip -r ../lambda.zip .
+zip -r ../lambda.zip . -x "*.DS_Store" -x "test-events/*"
 ```
 
 Faça upload do `lambda.zip` na AWS Lambda.
@@ -237,6 +295,19 @@ magick -background none -density 300 icon.svg -resize 108x108 icon-108x108.png
 ```
 
 **Requisitos:** ImageMagick instalado (`brew install imagemagick` no macOS).
+
+---
+
+## Intents e Samples
+
+| Intent | Samples | Descrição |
+|--------|---------|-----------|
+| `GetTodayTidesIntent` | 49 | Marés do dia atual |
+| `GetTidesByDateIntent` | 25 | Marés de uma data específica |
+| `GetHighTideIntent` | 32 | Maré alta / cheia / preamar |
+| `GetLowTideIntent` | 37 | Maré baixa / seca / baixamar |
+
+**Total: 143 samples de voz**
 
 ---
 
@@ -270,7 +341,7 @@ Certifique-se de que o `node_modules` está incluído no ZIP:
 cd alexa-skill/lambda
 rm -rf node_modules
 npm install
-zip -r ../lambda.zip .
+zip -r ../lambda.zip . -x "*.DS_Store" -x "test-events/*"
 ```
 
 ### Skill não responde
@@ -285,3 +356,12 @@ Os dados de marés devem estar em `lambda/data/2026/` com nomenclatura em inglê
 - `january_2026.json`, `february_2026.json`, etc.
 
 Os campos JSON internos estão em português: `dias`, `dia`, `diaSemana`, `mares`, `hora`, `altura`.
+
+### Perguntas diretas não funcionam
+
+Se comandos como "Alexa, maré" não ativam a skill:
+
+1. Verifique se `CAN_FULFILL_INTENT_REQUEST` está habilitado em **Build** → **Interfaces**
+2. Reconstrua o modelo de interação
+3. A Amazon pode precisar aprovar a skill para Name-Free Interaction
+4. Certifique-se de que o `CanFulfillIntentRequestHandler` está no código Lambda
