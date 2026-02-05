@@ -3,7 +3,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "YOUR_LAMBDA_ARN_HERE"
+          "uri": "arn:aws:lambda:us-east-1:149758912476:function:alexa-tabua-mares-maceio"
         },
         "interfaces": [
           {
@@ -32,11 +32,11 @@
         "pt-BR": {
           "name": "Tábua de Marés Maceió",
           "summary": "Consulte os horários e alturas das marés em Maceió, Alagoas.",
-          "description": "A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos.",
+          "description": "A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos. Suporta termos náuticos como preamar, baixamar, maré cheia e maré seca.",
           "smallIconUri": "https://tabuademares.maceio.br/icon-108.png",
           "largeIconUri": "https://tabuademares.maceio.br/icon-512.png",
           "examplePhrases": [
-            "Alexa, abrir tábua de marés",
+            "Alexa, maré",
             "Alexa, qual a maré de hoje",
             "Alexa, quando é a maré baixa"
           ],
@@ -49,12 +49,14 @@
             "praia",
             "pesca",
             "surf",
-            "náutica"
+            "náutica",
+            "preamar",
+            "baixamar"
           ]
         }
       },
       "isAvailableWorldwide": false,
-      "testingInstructions": "Pergunte sobre as marés de hoje ou de uma data específica. Exemplos: 'qual a maré de hoje', 'quando é a maré alta', 'maré de amanhã'.",
+      "testingInstructions": "Pergunte sobre as marés de hoje ou de uma data específica. Exemplos: 'maré', 'qual a maré de hoje', 'maré alta', 'maré baixa', 'preamar', 'baixamar', 'quando enche a maré', 'maré amanhã'.",
       "category": "WEATHER",
       "distributionCountries": [
         "BR"
