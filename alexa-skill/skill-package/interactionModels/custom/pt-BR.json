@@ -24,11 +24,16 @@
           "samples": []
         },
         {
+          "name": "AMAZON.SearchQuery",
+          "samples": []
+        },
+        {
           "name": "GetTodayTidesIntent",
           "slots": [],
           "samples": [
             "como está a maré hoje",
             "qual a maré de hoje",
+            "qual a maré hoje",
             "quais são as marés de hoje",
             "me diga a maré de hoje",
             "horário das marés hoje",
@@ -37,7 +42,16 @@
             "previsão de maré para hoje",
             "como estão as marés",
             "e a maré",
-            "maré"
+            "maré",
+            "tábua de marés",
+            "tabua de mares",
+            "maré maceió",
+            "marés maceió",
+            "consultar maré",
+            "ver maré",
+            "previsão de maré",
+            "horário da maré",
+            "horários das marés"
           ]
         },
         {

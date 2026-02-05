@@ -250,6 +250,40 @@ const SessionEndedRequestHandler = {
   }
 };
 
+// CanFulfillIntentRequest Handler - Permite que a Alexa saiba que esta skill pode responder a perguntas diretas
+const CanFulfillIntentRequestHandler = {
+  canHandle(handlerInput) {
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'CanFulfillIntentRequest';
+  },
+  handle(handlerInput) {
+    const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
+    
+    // Lista de intents que esta skill pode atender
+    const supportedIntents = [
+      'GetTodayTidesIntent',
+      'GetTidesByDateIntent',
+      'GetHighTideIntent',
+      'GetLowTideIntent'
+    ];
+    
+    if (supportedIntents.includes(intentName)) {
+      return handlerInput.responseBuilder
+        .withCanFulfillIntent({
+          canFulfill: 'YES',
+          slots: {}
+        })
+        .getResponse();
+    }
+    
+    return handlerInput.responseBuilder
+      .withCanFulfillIntent({
+        canFulfill: 'NO',
+        slots: {}
+      })
+      .getResponse();
+  }
+};
+
 // Error Handler
 const ErrorHandler = {
   canHandle() {
@@ -270,6 +304,7 @@ const ErrorHandler = {
 
 exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
+    CanFulfillIntentRequestHandler,
     LaunchRequestHandler,
     GetTodayTidesIntentHandler,
     GetTidesByDateIntentHandler,

@@ -5,7 +5,11 @@
         "endpoint": {
           "uri": "YOUR_LAMBDA_ARN_HERE"
         },
-        "interfaces": []
+        "interfaces": [
+          {
+            "type": "CAN_FULFILL_INTENT_REQUEST"
+          }
+        ]
       }
     },
     "manifestVersion": "1.0",
@@ -33,8 +37,8 @@
           "largeIconUri": "https://tabuademares.maceio.br/icon-512.png",
           "examplePhrases": [
             "Alexa, abrir tábua de marés",
-            "Alexa, perguntar para tábua de marés qual a maré de hoje",
-            "Alexa, perguntar para tábua de marés quando é a maré alta"
+            "Alexa, qual a maré de hoje",
+            "Alexa, quando é a maré baixa"
           ],
           "keywords": [
             "maré",
