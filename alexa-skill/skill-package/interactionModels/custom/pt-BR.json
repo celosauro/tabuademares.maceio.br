@@ -24,10 +24,6 @@
           "samples": []
         },
         {
-          "name": "AMAZON.SearchQuery",
-          "samples": []
-        },
-        {
           "name": "GetTodayTidesIntent",
           "slots": [],
           "samples": [
