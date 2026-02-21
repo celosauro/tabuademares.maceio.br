@@ -1,0 +1,8 @@
+# robots.txt - Tábua de Marés Maceió
+# https://tabuademares.maceio.br
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tabuademares.maceio.br/sitemap.xml

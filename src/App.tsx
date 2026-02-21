@@ -84,6 +84,12 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+        
+        {/* SEO Intro Text - visible but subtle */}
+        <p className="text-fluid-sm text-tide-500 text-center mb-6 max-w-2xl mx-auto">
+          Consulte os horários de preamar e baixa-mar para as praias de Maceió, Alagoas. 
+          Selecione o mês e visualize os dados de maré com base nas informações da Marinha do Brasil.
+        </p>
 
         {isLoading && <LoadingSpinner />}
         
@@ -160,8 +166,13 @@ function App() {
 
       {/* Footer */}
       <footer className="bg-white border-t border-tide-100 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 py-4 text-center text-fluid-sm text-tide-500">
-          <p>© 2026 Tábua de Marés Maceió</p>
+        <div className="max-w-7xl mx-auto px-4 py-6 text-center">
+          <p className="text-fluid-sm text-tide-600 mb-2">
+            Dados: Marinha do Brasil - Centro de Hidrografia da Marinha (CHM)
+          </p>
+          <p className="text-fluid-xs text-tide-400">
+            © 2026 Tábua de Marés Maceió | Horários de maré para praias de Alagoas
+          </p>
         </div>
       </footer>
     </div>
