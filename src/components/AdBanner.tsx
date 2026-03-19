@@ -64,15 +64,33 @@ export function AdBanner({
       return;
     }
 
-    // Verifica se o SDK do AdSense está disponível
-    try {
-      if (window.adsbygoogle && adRef.current) {
-        window.adsbygoogle.push({});
-        setIsLoaded(true);
+    // Aguarda layout estar completo antes de inicializar
+    let attempts = 0;
+    const maxAttempts = 10;
+    
+    const tryInit = () => {
+      attempts++;
+      
+      if (!adRef.current) return;
+      
+      // Verifica se o elemento tem dimensões válidas
+      const { offsetWidth } = adRef.current;
+      
+      if (offsetWidth > 0 && window.adsbygoogle) {
+        try {
+          window.adsbygoogle.push({});
+          setIsLoaded(true);
+        } catch (error) {
+          console.warn('AdSense: erro ao carregar anúncio', error);
+        }
+      } else if (attempts < maxAttempts) {
+        // Tenta novamente no próximo frame
+        requestAnimationFrame(tryInit);
       }
-    } catch (error) {
-      console.warn('AdSense: erro ao carregar anúncio', error);
-    }
+    };
+
+    // Inicia após o primeiro paint
+    requestAnimationFrame(tryInit);
   }, [isVisible, isLoaded]);
 
   // Classes de altura mínima para evitar layout shift
@@ -83,43 +101,19 @@ export function AdBanner({
     rectangle: 'min-h-[250px]',
   };
 
-  // Placeholder para ambiente de desenvolvimento
-  if (import.meta.env.DEV) {
-    return (
-      <div
-        ref={adRef}
-        className={`
-          ${heightClasses[format]}
-          bg-tide-50 border-2 border-dashed border-tide-200 
-          rounded-lg flex items-center justify-center
-          text-tide-400 text-fluid-sm
-          ${className}
-        `}
-        role="region"
-        aria-label="Espaço para anúncio"
-      >
-        <div className="text-center p-4">
-          <p className="font-medium">📢 Anúncio (DEV)</p>
-          <p className="text-fluid-xs mt-1">Slot: {slot}</p>
-          <p className="text-fluid-xs">Formato: {format}</p>
-        </div>
-      </div>
-    );
-  }
-
   // Anúncio real em produção
   return (
     <div
       ref={adRef}
       className={`
         ${heightClasses[format]}
-        flex items-center justify-center
+        w-full
         ${className}
       `}
     >
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block', width: '100%' }}
         data-ad-client={ADSENSE_CLIENT}
         data-ad-slot={slot}
         data-ad-format={format === 'auto' ? 'auto' : undefined}
