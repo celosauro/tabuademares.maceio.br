@@ -85,7 +85,7 @@ function App() {
 
       {/* Ad Banner #1 - Above the fold */}
       <div className="max-w-7xl mx-auto px-4 py-2">
-        <AdBanner slot="XXXXXXXXXX" format="auto" />
+        <AdBanner slot="3402483218" format="auto" />
       </div>
 
       {/* Main Content */}
@@ -125,7 +125,7 @@ function App() {
 
                 {/* Ad Banner #2 - Mid content (only in cards view) */}
                 <div className="mt-6">
-                  <AdBanner slot="XXXXXXXXXX" format="auto" lazy />
+                  <AdBanner slot="5889045750" format="auto" lazy />
                 </div>
               </section>
             )}
@@ -177,7 +177,7 @@ function App() {
 
       {/* Ad Banner #3 - Before footer */}
       <div className="max-w-7xl mx-auto px-4 py-4">
-        <AdBanner slot="XXXXXXXXXX" format="auto" lazy />
+        <AdBanner slot="5697474060" format="auto" lazy />
       </div>
 
       {/* Footer */}
