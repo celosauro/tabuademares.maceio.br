@@ -9,6 +9,7 @@ import {
   LoadingSpinner,
   ErrorMessage,
   TideTable,
+  AdBanner,
 } from './components';
 
 function getCurrentMonthKey(): MonthKey {
@@ -82,6 +83,11 @@ function App() {
         </div>
       </div>
 
+      {/* Ad Banner #1 - Above the fold */}
+      <div className="max-w-7xl mx-auto px-4 py-2">
+        <AdBanner slot="XXXXXXXXXX" format="auto" />
+      </div>
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
         
@@ -115,6 +121,11 @@ function App() {
                 <div className="sm:hidden flex flex-col items-center mt-6 text-tide-400">
                   <span className="text-fluid-sm">Deslize para ver mais</span>
                   <CaretDown weight="bold" className="w-5 h-5 mt-1 animate-bounce" />
+                </div>
+
+                {/* Ad Banner #2 - Mid content (only in cards view) */}
+                <div className="mt-6">
+                  <AdBanner slot="XXXXXXXXXX" format="auto" lazy />
                 </div>
               </section>
             )}
@@ -163,6 +174,11 @@ function App() {
           </>
         )}
       </main>
+
+      {/* Ad Banner #3 - Before footer */}
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <AdBanner slot="XXXXXXXXXX" format="auto" lazy />
+      </div>
 
       {/* Footer */}
       <footer className="bg-white border-t border-tide-100 mt-auto">

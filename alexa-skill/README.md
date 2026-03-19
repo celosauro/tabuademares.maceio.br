@@ -24,6 +24,16 @@ alexa-skill/
 
 ## Comandos de Voz Disponíveis
 
+> **Importante:** Use sempre um verbo de invocação como "abrir", "perguntar" ou "pedir" antes do nome da skill. Comandos diretos como "Alexa, maré" podem não funcionar pois a Alexa pode confundir com música ou clima. Veja a seção [Criar Rotina](#criar-rotina-para-comandos-curtos) para atalhos personalizados.
+
+### Abrir a Skill
+
+| Comando | Exemplo |
+|---------|---------|
+| Abrir | "Alexa, **abrir** tábua de marés" |
+| Perguntar | "Alexa, **perguntar** tábua de marés qual a maré" |
+| Pedir | "Alexa, **pedir** para tábua de marés a maré de amanhã" |
+
 ### Marés do dia (GetTodayTidesIntent)
 
 | Comando | Exemplo |
@@ -68,11 +78,11 @@ alexa-skill/
 
 ## Funcionalidades
 
-- ✅ **Name-Free Interaction (NFI)**: Perguntas diretas sem precisar abrir a skill
-- ✅ **CanFulfillIntentRequest**: Alexa identifica automaticamente a skill para perguntas sobre maré
+- ✅ **CanFulfillIntentRequest**: Responde quando a Alexa busca skills para marés
 - ✅ **Termos náuticos**: Suporte a "preamar", "baixamar", "maré cheia", "maré seca"
 - ✅ **Variações coloquiais**: "como tá a maré", "quando enche", "quando seca"
 - ✅ **Datas flexíveis**: Amanhã, próxima semana, dias da semana, datas específicas
+- ⚠️ **Name-Free Interaction**: Não disponível oficialmente para pt-BR (use rotinas)
 
 ---
 
@@ -365,3 +375,54 @@ Se comandos como "Alexa, maré" não ativam a skill:
 2. Reconstrua o modelo de interação
 3. A Amazon pode precisar aprovar a skill para Name-Free Interaction
 4. Certifique-se de que o `CanFulfillIntentRequestHandler` está no código Lambda
+
+> **Nota:** Name-Free Interaction (NFI) não está oficialmente disponível para pt-BR. Use os verbos de invocação ou crie uma rotina (veja abaixo).
+
+---
+
+## Criar Rotina para Comandos Curtos
+
+Como o Name-Free Interaction não está disponível para pt-BR, você pode criar uma **rotina personalizada** no app Alexa para usar comandos mais curtos como "Alexa, qual a maré".
+
+### Passo a passo:
+
+1. Abra o **app Alexa** no celular
+2. Toque em **Mais** (canto inferior direito)
+3. Selecione **Rotinas**
+4. Toque no **+** para criar nova rotina
+5. Em **"Quando isso acontecer"**:
+   - Selecione **Voz**
+   - Digite a frase desejada, ex: `qual a maré`
+6. Em **"Alexa vai"**:
+   - Selecione **Skills**
+   - Procure e selecione **Tábua de Marés Maceió**
+7. Toque em **Salvar**
+
+### Sugestões de frases para rotinas:
+
+| Frase | Ação |
+|-------|------|
+| "qual a maré" | Abre a skill e diz a maré do dia |
+| "maré hoje" | Abre a skill e diz a maré do dia |
+| "maré maceió" | Abre a skill e diz a maré do dia |
+
+Agora você pode dizer apenas **"Alexa, qual a maré"** e a skill será ativada automaticamente!
+
+---
+
+## Verbos de Invocação Suportados
+
+Formas de abrir a skill sem rotina:
+
+| Verbo | Exemplo |
+|-------|---------|
+| **abrir** | "Alexa, **abrir** tábua de marés" |
+| **iniciar** | "Alexa, **iniciar** tábua de marés" |
+| **perguntar** | "Alexa, **perguntar** tábua de marés qual a maré" |
+| **pedir** | "Alexa, **pedir** para tábua de marés a maré baixa" |
+| **falar com** | "Alexa, **falar com** tábua de marés" |
+
+A forma mais natural é:
+```
+"Alexa, perguntar tábua de marés qual a maré hoje"
+```

@@ -32,13 +32,13 @@
         "pt-BR": {
           "name": "Tábua de Marés Maceió",
           "summary": "Consulte os horários e alturas das marés em Maceió, Alagoas.",
-          "description": "A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos. Suporta termos náuticos como preamar, baixamar, maré cheia e maré seca.",
+          "description": "A skill Tábua de Marés Maceió fornece informações sobre os horários e alturas das marés na cidade de Maceió, Alagoas, Brasil. Você pode perguntar sobre as marés de hoje, de amanhã, ou de qualquer data específica em 2026. A skill informa tanto marés altas quanto marés baixas, facilitando o planejamento de atividades na praia, pesca e esportes náuticos. Suporta termos náuticos como preamar, baixamar, maré cheia e maré seca.\n\nComo usar: Diga 'Alexa, abrir tábua de marés' e depois faça sua pergunta. Exemplos: 'qual a maré hoje', 'maré alta', 'maré de amanhã'.\n\nDica: Crie uma rotina no app Alexa para usar comandos mais curtos! Vá em Mais > Rotinas > + > Voz (ex: 'qual a maré') > Alexa vai > Skills > Tábua de Marés Maceió.",
           "smallIconUri": "https://tabuademares.maceio.br/icon-108.png",
           "largeIconUri": "https://tabuademares.maceio.br/icon-512.png",
           "examplePhrases": [
-            "Alexa, maré",
-            "Alexa, qual a maré de hoje",
-            "Alexa, quando é a maré baixa"
+            "Alexa, abrir tábua de marés",
+            "Alexa, perguntar tábua de marés qual a maré hoje",
+            "Alexa, pedir para tábua de marés a maré baixa"
           ],
           "keywords": [
             "maré",
