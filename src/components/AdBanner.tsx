@@ -21,6 +21,7 @@ const ADSENSE_CLIENT = 'ca-pub-3884485145925759';
  * 
  * Em ambiente de desenvolvimento, exibe um placeholder visual.
  * Em produção, carrega o anúncio real do AdSense.
+ * Não ocupa espaço até que o anúncio seja carregado.
  */
 export function AdBanner({
   slot,
@@ -31,7 +32,7 @@ export function AdBanner({
 }: AdBannerProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(!lazy);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [adStatus, setAdStatus] = useState<'idle' | 'loading' | 'loaded' | 'error'>('idle');
 
   // Lazy loading com IntersectionObserver
   useEffect(() => {
@@ -44,7 +45,7 @@ export function AdBanner({
           observer.disconnect();
         }
       },
-      { rootMargin: '200px' } // Carrega 200px antes de entrar na viewport
+      { rootMargin: '200px' }
     );
 
     if (adRef.current) {
@@ -56,13 +57,15 @@ export function AdBanner({
 
   // Inicializar anúncio quando visível
   useEffect(() => {
-    if (!isVisible || isLoaded) return;
+    if (!isVisible || adStatus !== 'idle') return;
 
     // Em desenvolvimento, não carrega o SDK real
     if (import.meta.env.DEV) {
-      setIsLoaded(true);
+      setAdStatus('loaded');
       return;
     }
+
+    setAdStatus('loading');
 
     // Aguarda layout estar completo antes de inicializar
     let attempts = 0;
@@ -73,43 +76,41 @@ export function AdBanner({
       
       if (!adRef.current) return;
       
-      // Verifica se o elemento tem dimensões válidas
       const { offsetWidth } = adRef.current;
       
       if (offsetWidth > 0 && window.adsbygoogle) {
         try {
           window.adsbygoogle.push({});
-          setIsLoaded(true);
+          setAdStatus('loaded');
         } catch (error) {
           console.warn('AdSense: erro ao carregar anúncio', error);
+          setAdStatus('error');
         }
       } else if (attempts < maxAttempts) {
-        // Tenta novamente no próximo frame
         requestAnimationFrame(tryInit);
+      } else {
+        setAdStatus('error');
       }
     };
 
-    // Inicia após o primeiro paint
     requestAnimationFrame(tryInit);
-  }, [isVisible, isLoaded]);
+  }, [isVisible, adStatus]);
 
-  // Classes de altura mínima para evitar layout shift
-  const heightClasses = {
-    auto: 'min-h-[100px] sm:min-h-[90px]',
-    horizontal: 'min-h-[90px]',
-    vertical: 'min-h-[250px]',
-    rectangle: 'min-h-[250px]',
-  };
+  // Em desenvolvimento, não renderiza nada
+  if (import.meta.env.DEV) {
+    return null;
+  }
 
-  // Anúncio real em produção
+  // Não renderiza nada se houver erro
+  if (adStatus === 'error') {
+    return null;
+  }
+
+  // Container do anúncio - sem altura mínima, deixa AdSense definir
   return (
     <div
       ref={adRef}
-      className={`
-        ${heightClasses[format]}
-        w-full
-        ${className}
-      `}
+      className={`w-full ${className}`}
     >
       <ins
         className="adsbygoogle"

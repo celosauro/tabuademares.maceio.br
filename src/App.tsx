@@ -98,10 +98,6 @@ function App() {
 
         {data && !isLoading && !error && (
           <>
-            {/* Ad Banner #1 - Above the fold, only when content is loaded */}
-            <div className="mb-6">
-              <AdBanner slot="3402483218" format="auto" />
-            </div>
             {/* Today's Card - Highlighted at Top (only in cards view) */}
             {todayCard && viewMode === 'cards' && (
               <section className="mb-6 sm:mb-8">
@@ -121,13 +117,11 @@ function App() {
                   <span className="text-fluid-sm">Deslize para ver mais</span>
                   <CaretDown weight="bold" className="w-5 h-5 mt-1 animate-bounce" />
                 </div>
-
-                {/* Ad Banner #2 - Mid content (only in cards view) */}
-                <div className="mt-6">
-                  <AdBanner slot="5889045750" format="auto" lazy />
-                </div>
               </section>
             )}
+
+            {/* Ad Banner - Between today and month grid */}
+            <AdBanner slot="3402483218" format="auto" className="mb-6" />
 
             {/* Month Title (only in table view) */}
             {viewMode === 'table' && (
@@ -170,16 +164,12 @@ function App() {
                 </p>
               )}
             </section>
+
+            {/* Ad Banner - After content, before footer */}
+            <AdBanner slot="5697474060" format="auto" lazy className="mt-6" />
           </>
         )}
       </main>
-
-      {/* Ad Banner #3 - Before footer, only when content is loaded */}
-      {data && !isLoading && !error && (
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <AdBanner slot="5697474060" format="auto" lazy />
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="bg-white border-t border-tide-100 mt-auto">
