@@ -83,11 +83,6 @@ function App() {
         </div>
       </div>
 
-      {/* Ad Banner #1 - Above the fold */}
-      <div className="max-w-7xl mx-auto px-4 py-2">
-        <AdBanner slot="3402483218" format="auto" />
-      </div>
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
         
@@ -103,6 +98,10 @@ function App() {
 
         {data && !isLoading && !error && (
           <>
+            {/* Ad Banner #1 - Above the fold, only when content is loaded */}
+            <div className="mb-6">
+              <AdBanner slot="3402483218" format="auto" />
+            </div>
             {/* Today's Card - Highlighted at Top (only in cards view) */}
             {todayCard && viewMode === 'cards' && (
               <section className="mb-6 sm:mb-8">
@@ -175,10 +174,12 @@ function App() {
         )}
       </main>
 
-      {/* Ad Banner #3 - Before footer */}
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <AdBanner slot="5697474060" format="auto" lazy />
-      </div>
+      {/* Ad Banner #3 - Before footer, only when content is loaded */}
+      {data && !isLoading && !error && (
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <AdBanner slot="5697474060" format="auto" lazy />
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-white border-t border-tide-100 mt-auto">
