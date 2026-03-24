@@ -18,6 +18,8 @@ function getCurrentMonthKey(): MonthKey {
 }
 
 function getStoredViewMode(): 'cards' | 'table' {
+  // Verifica se está no servidor (SSR) - retorna valor padrão
+  if (typeof window === 'undefined') return 'cards';
   const stored = localStorage.getItem('viewMode');
   return stored === 'table' ? 'table' : 'cards';
 }
@@ -28,9 +30,11 @@ function App() {
   const [viewMode, setViewMode] = useState<'cards' | 'table'>(getStoredViewMode);
   const { data, isLoading, error } = useTideData(selectedMonth);
 
-  // Salva o modo de visualização no localStorage
+  // Salva o modo de visualização no localStorage (apenas no cliente)
   useEffect(() => {
-    localStorage.setItem('viewMode', viewMode);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('viewMode', viewMode);
+    }
   }, [viewMode]);
 
   // Filtra dias que contêm maré muito baixa (< 0.2m)
@@ -47,7 +51,10 @@ function App() {
 
   const handleMonthChange = (month: MonthKey) => {
     setSelectedMonth(month);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Verifica se está no cliente antes de usar window
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (

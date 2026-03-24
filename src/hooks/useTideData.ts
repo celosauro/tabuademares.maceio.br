@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TideData, DayData, MonthKey } from '../types/tide';
+import { useSSRData } from '../contexts/SSRDataContext';
 
 interface RawTideData {
   ano: number;
@@ -57,11 +58,29 @@ interface UseTideDataReturn {
 }
 
 export function useTideData(month: MonthKey): UseTideDataReturn {
-  const [data, setData] = useState<TideData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Verifica se há dados pré-carregados do SSR
+  const { initialData } = useSSRData();
+  const ssrData = initialData.get(month);
+
+  const [data, setData] = useState<TideData | null>(ssrData || null);
+  const [isLoading, setIsLoading] = useState(!ssrData);
   const [error, setError] = useState<string | null>(null);
+  const [loadedMonth, setLoadedMonth] = useState<MonthKey | null>(ssrData ? month : null);
 
   useEffect(() => {
+    // Se já temos dados carregados para este mês, não precisa carregar novamente
+    if (loadedMonth === month && data) {
+      return;
+    }
+
+    // Se temos dados SSR para este mês e ainda não carregamos nada
+    if (ssrData && !loadedMonth) {
+      setData(ssrData);
+      setLoadedMonth(month);
+      setIsLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     async function loadData() {
@@ -75,6 +94,7 @@ export function useTideData(month: MonthKey): UseTideDataReturn {
         if (!cancelled) {
           const transformed = transformData(module.default);
           setData(transformed);
+          setLoadedMonth(month);
         }
       } catch (err) {
         if (!cancelled) {
@@ -93,7 +113,7 @@ export function useTideData(month: MonthKey): UseTideDataReturn {
     return () => {
       cancelled = true;
     };
-  }, [month]);
+  }, [month, ssrData, loadedMonth, data]);
 
   return { data, isLoading, error };
 }
