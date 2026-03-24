@@ -11,6 +11,8 @@ interface AdBannerProps {
   lazy?: boolean;
   /** Classes CSS adicionais para o container */
   className?: string;
+  /** Indica se há conteúdo carregado na página (evita anúncios em telas vazias) */
+  hasContent?: boolean;
 }
 
 // Publisher ID do AdSense - substituir pelo ID real após aprovação
@@ -22,6 +24,9 @@ const ADSENSE_CLIENT = 'ca-pub-3884485145925759';
  * Em ambiente de desenvolvimento, exibe um placeholder visual.
  * Em produção, carrega o anúncio real do AdSense.
  * Não ocupa espaço até que o anúncio seja carregado.
+ * 
+ * IMPORTANTE: Para conformidade com políticas do Google AdSense,
+ * este componente só renderiza anúncios quando há conteúdo real na página.
  */
 export function AdBanner({
   slot,
@@ -29,6 +34,7 @@ export function AdBanner({
   responsive = true,
   lazy = false,
   className = '',
+  hasContent = true,
 }: AdBannerProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(!lazy);
@@ -98,6 +104,11 @@ export function AdBanner({
 
   // Em desenvolvimento, não renderiza nada
   if (import.meta.env.DEV) {
+    return null;
+  }
+
+  // Não renderiza anúncios se não houver conteúdo na página (política AdSense)
+  if (!hasContent) {
     return null;
   }
 

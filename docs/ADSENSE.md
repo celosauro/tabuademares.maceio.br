@@ -179,6 +179,39 @@ npm run build && npm run preview
 
 ## Troubleshooting
 
+### Violação de Política: "Anúncios em telas sem conteúdo do editor"
+
+Esta violação ocorre quando o Google detecta anúncios sendo exibidos em páginas sem conteúdo substancial. 
+
+**Causas comuns em SPAs React:**
+- Auto Ads habilitados inserem anúncios durante estados de loading
+- Script AdSense carrega antes do conteúdo React renderizar
+- Páginas 404 ou erro exibindo anúncios
+
+**Soluções implementadas neste projeto:**
+
+1. **Desabilitar Auto Ads no painel AdSense:**
+   - Acesse [AdSense](https://www.google.com/adsense/) > Anúncios > Visão geral
+   - No site `tabuademares.maceio.br`, clique no ícone de lápis
+   - Desative "Anúncios automáticos" (Auto Ads)
+   - Mantenha apenas "Unidades de anúncio" ativas
+
+2. **Script carregado no final do body:**
+   - O script AdSense foi movido para o final do `<body>` em `index.html`
+   - Isso garante que o conteúdo HTML inicial já existe quando o script carrega
+
+3. **Conteúdo de fallback no root:**
+   - O `<div id="root">` agora tem conteúdo visível inicial
+   - Evita tela completamente vazia enquanto React inicializa
+
+4. **Prop `hasContent` no AdBanner:**
+   - O componente verifica se há conteúdo antes de renderizar anúncios
+   - Anúncios só aparecem quando `data` está carregado
+
+**Após fazer as correções, solicite nova revisão no painel AdSense.**
+
+---
+
 ### Anúncios não aparecem
 
 | Problema | Causa | Solução |
@@ -242,4 +275,5 @@ Antes de publicar alterações relacionadas ao AdSense:
 
 | Data | Alteração |
 |------|-----------|
+| 2026-03-24 | Correção: violação "anúncios em telas sem conteúdo" - script movido para final do body, fallback content adicionado, prop hasContent |
 | 2026-03-19 | Integração inicial do AdSense |

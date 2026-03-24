@@ -37,12 +37,8 @@
     <meta name="theme-color" content="#0ea5e9" />
     <meta name="msapplication-TileColor" content="#0ea5e9" />
     
-    <!-- Google AdSense -->
-    <script 
-      async 
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3884485145925759"
-      crossorigin="anonymous">
-    </script>
+    <!-- Google AdSense - Carregado de forma controlada para evitar anúncios em páginas sem conteúdo -->
+    <!-- O script é carregado no final do body para garantir que o conteúdo já foi renderizado -->
     
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -91,8 +87,21 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Fallback content visível enquanto React carrega (evita tela vazia) -->
+      <div id="initial-content" style="max-width: 800px; margin: 0 auto; padding: 40px 20px; text-align: center; font-family: system-ui, sans-serif;">
+        <h1 style="color: #0369a1; font-size: 1.5rem; margin-bottom: 8px;">Tábua de Marés Maceió 2026</h1>
+        <p style="color: #0284c7;">Carregando horários de maré...</p>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Google AdSense - Carregado após conteúdo inicial para evitar violação de política -->
+    <script 
+      async 
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3884485145925759"
+      crossorigin="anonymous">
+    </script>
     
     <!-- SEO Fallback content for crawlers that don't execute JavaScript -->
     <noscript>

@@ -121,7 +121,7 @@ function App() {
             )}
 
             {/* Ad Banner - Between today and month grid */}
-            <AdBanner slot="3402483218" format="auto" className="mb-6" />
+            <AdBanner slot="3402483218" format="auto" className="mb-6" hasContent={!!data} />
 
             {/* Month Title (only in table view) */}
             {viewMode === 'table' && (
@@ -166,7 +166,7 @@ function App() {
             </section>
 
             {/* Ad Banner - After content, before footer */}
-            <AdBanner slot="5697474060" format="auto" lazy className="mt-6" />
+            <AdBanner slot="5697474060" format="auto" lazy className="mt-6" hasContent={!!data} />
           </>
         )}
       </main>
