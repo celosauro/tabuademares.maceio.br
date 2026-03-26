@@ -10,6 +10,7 @@ import {
   ErrorMessage,
   TideTable,
   AdBanner,
+  InfoSection,
 } from './components';
 
 function getCurrentMonthKey(): MonthKey {
@@ -172,8 +173,11 @@ function App() {
               )}
             </section>
 
-            {/* Ad Banner - After content, before footer */}
+            {/* Ad Banner - After content, before info */}
             <AdBanner slot="5697474060" format="auto" lazy className="mt-6" hasContent={!!data} />
+
+            {/* Info Section - Educational content about tides */}
+            <InfoSection className="mt-8" />
           </>
         )}
       </main>
