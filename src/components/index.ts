@@ -5,4 +5,3 @@ export { TideReading } from './TideReading';
 export { DayCard } from './DayCard';
 export { TideTable } from './TideTable';
 export { AdBanner } from './AdBanner';
-export { InfoSection } from './InfoSection';

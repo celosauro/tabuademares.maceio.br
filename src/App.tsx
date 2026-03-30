@@ -10,7 +10,6 @@ import {
   ErrorMessage,
   TideTable,
   AdBanner,
-  InfoSection,
 } from './components';
 
 function getCurrentMonthKey(): MonthKey {
@@ -173,24 +172,57 @@ function App() {
               )}
             </section>
 
-            {/* Ad Banner - After content, before info */}
+            {/* Ad Banner - After content */}
             <AdBanner slot="5697474060" format="auto" lazy className="mt-6" hasContent={!!data} />
-
-            {/* Info Section - Educational content about tides */}
-            <InfoSection className="mt-8" />
           </>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-tide-100 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 py-6 text-center">
-          <p className="text-fluid-sm text-tide-600 mb-2">
-            Dados: Marinha do Brasil - Centro de Hidrografia da Marinha (CHM)
-          </p>
-          <p className="text-fluid-xs text-tide-400">
-            © 2026 Tábua de Marés Maceió | Horários de maré para praias de Alagoas
-          </p>
+      <footer className="bg-tide-800 text-white mt-auto">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Alexa Skill Banner */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 pb-6 border-b border-tide-700">
+            <span className="text-fluid-sm text-tide-200">🎤 Consulte por voz:</span>
+            <a 
+              href="https://www.amazon.com.br/marcelodeandrade-T%C3%A1bua-de-Mar%C3%A9s-Macei%C3%B3/dp/B0GLQDL4WY/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-medium px-4 py-2 rounded-full text-fluid-sm transition-colors"
+            >
+              <span>Skill Alexa</span>
+              <span className="text-xs">→</span>
+            </a>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6">
+            <a href="/sobre.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Sobre
+            </a>
+            <a href="/faq.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              FAQ
+            </a>
+            <a href="/contato.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Contato
+            </a>
+            <a href="/privacidade.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Privacidade
+            </a>
+            <a href="/termos.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Termos de Uso
+            </a>
+          </nav>
+
+          {/* Source & Copyright */}
+          <div className="text-center">
+            <p className="text-fluid-xs text-tide-300 mb-1">
+              Dados oficiais: Marinha do Brasil - Centro de Hidrografia da Marinha (CHM)
+            </p>
+            <p className="text-fluid-xs text-tide-400">
+              © 2026 Tábua de Marés Maceió
+            </p>
+          </div>
         </div>
       </footer>
     </div>

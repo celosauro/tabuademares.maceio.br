@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Question, Anchor, Fish, WaveTriangle, CaretDown, CaretUp, Info } from '@phosphor-icons/react';
+import { Question, CaretDown, CaretUp } from '@phosphor-icons/react';
 
 interface FAQItem {
   question: string;
@@ -30,24 +30,6 @@ const faqData: FAQItem[] = [
   {
     question: 'De onde vêm esses dados?',
     answer: 'Todos os dados são fornecidos pelo Centro de Hidrografia da Marinha (CHM), órgão oficial da Marinha do Brasil responsável pelas previsões de maré. Os horários são específicos para o Porto de Maceió, podendo haver pequenas variações para praias mais distantes.'
-  },
-];
-
-const useCases = [
-  {
-    icon: Fish,
-    title: 'Pesca',
-    description: 'Os peixes costumam alimentar-se mais durante as mudanças de maré. Marés baixas podem revelar bancos de areia e formações rochosas ideais para a pesca de praia.'
-  },
-  {
-    icon: WaveTriangle,
-    title: 'Surf',
-    description: 'A formação das ondas é influenciada pela maré. Muitos picos funcionam melhor em determinados estágios da maré, geralmente na subida ou descida.'
-  },
-  {
-    icon: Anchor,
-    title: 'Navegação',
-    description: 'Para barcos de calado maior, conhecer os horários de maré alta é essencial para navegar com segurança em canais, barras e áreas rasas.'
   },
 ];
 
@@ -94,51 +76,6 @@ export function InfoSection({ className = '' }: InfoSectionProps) {
 
   return (
     <section className={`bg-white rounded-xl shadow-sm border border-tide-100 ${className}`}>
-      {/* Introduction */}
-      <div className="p-6 border-b border-tide-100">
-        <div className="flex items-center gap-3 mb-4">
-          <Info weight="duotone" className="w-6 h-6 text-tide-500" />
-          <h2 className="text-fluid-lg font-semibold text-tide-800">
-            Sobre a Tábua de Marés de Maceió
-          </h2>
-        </div>
-        <div className="text-tide-600 text-fluid-sm leading-relaxed space-y-3">
-          <p>
-            A <strong>Tábua de Marés de Maceió 2026</strong> apresenta os{' '}
-            <strong>horários e alturas das marés</strong> para o litoral alagoano, 
-            com dados oficiais fornecidos pelo Centro de Hidrografia da Marinha do Brasil (CHM).
-          </p>
-          <p>
-            Maceió possui um <strong>regime de marés semidiurno</strong>, com duas marés altas e 
-            duas marés baixas por dia. A amplitude média varia de 1,5 a 2,5 metros, podendo 
-            alcançar valores maiores durante as <strong>marés de sizígia</strong> (lua cheia e lua nova).
-          </p>
-          <p>
-            Conhecer os horários de maré é fundamental para diversas atividades no litoral de 
-            Alagoas, desde a pesca artesanal até esportes náuticos e simplesmente escolher o 
-            melhor momento para curtir as praias de Maceió.
-          </p>
-        </div>
-      </div>
-
-      {/* Use Cases */}
-      <div className="p-6 border-b border-tide-100">
-        <h3 className="text-fluid-base font-semibold text-tide-700 mb-4">
-          Utilidades da Tábua de Marés
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {useCases.map(({ icon: Icon, title, description }) => (
-            <div key={title} className="bg-tide-50 rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Icon weight="duotone" className="w-5 h-5 text-tide-500" />
-                <h4 className="font-medium text-tide-700">{title}</h4>
-              </div>
-              <p className="text-tide-600 text-fluid-xs leading-relaxed">{description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* FAQ Accordion */}
       <div className="p-6">
         <div className="flex items-center gap-2 mb-4">
