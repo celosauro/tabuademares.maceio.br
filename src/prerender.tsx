@@ -3,6 +3,7 @@ import { StrictMode } from 'react';
 import App from './App';
 import { SSRDataProvider } from './contexts/SSRDataContext';
 import { TideData, MonthKey, MONTHS } from './types/tide';
+import { isShareRoute } from './utils/routes';
 
 // Importação estática dos dados de cada mês para SSR
 import januaryData from './data/2026/january_2026.json';
@@ -100,6 +101,20 @@ interface PrerenderResult {
  */
 export async function prerender(data: PrerenderData): Promise<PrerenderResult> {
   console.log(`[Prerender] Gerando HTML para: ${data.url}`);
+
+  // A rota /share depende da data atual do navegador: gera apenas o shell e renderiza no cliente
+  if (isShareRoute(data.url)) {
+    return {
+      html: '',
+      head: {
+        lang: 'pt-BR',
+        title: 'Compartilhar Maré do Dia - Tábua de Marés Maceió',
+        elements: new Set<HeadElement>([
+          { type: 'meta', props: { name: 'robots', content: 'noindex, nofollow' } },
+        ]),
+      },
+    };
+  }
 
   // Carrega os dados do mês atual para SSR
   const currentMonth = getCurrentMonthKey();
