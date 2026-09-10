@@ -18,6 +18,7 @@ export function DayCard({ day, year, month, isHighlighted = false, compact = fal
   if (compact) {
     return (
       <div
+        data-today={today ? 'true' : undefined}
         className={`
           relative rounded-lg p-4 min-h-[160px] transition-all duration-200
           ${highlighted
@@ -50,6 +51,7 @@ export function DayCard({ day, year, month, isHighlighted = false, compact = fal
   // Full card mode - mobile list view and highlighted today card
   return (
     <div
+      data-today={today ? 'true' : undefined}
       className={`
         relative rounded-xl p-5 md:p-6 transition-all duration-200
         ${highlighted

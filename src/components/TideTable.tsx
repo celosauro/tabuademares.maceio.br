@@ -52,6 +52,7 @@ export function TideTable({ days, year, month }: TideTableProps) {
             return (
               <tr
                 key={day.day}
+                data-today={today ? 'true' : undefined}
                 className={`
                   border-b border-tide-100 transition-colors
                   ${today 
