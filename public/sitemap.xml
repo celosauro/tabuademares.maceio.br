@@ -19,6 +19,30 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://tabuademares.maceio.br/guia-praias-maceio.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tabuademares.maceio.br/piscinas-naturais-maceio.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tabuademares.maceio.br/pesca-mares-alagoas.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://tabuademares.maceio.br/seguranca-praia-mare.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://tabuademares.maceio.br/contato.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>yearly</changefreq>

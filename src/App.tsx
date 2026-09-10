@@ -10,6 +10,7 @@ import {
   ErrorMessage,
   TideTable,
   AdBanner,
+  TideTip,
 } from './components';
 
 const TODAY_SCROLL_GAP = 16;
@@ -56,6 +57,8 @@ function App() {
     (day) => !filterLowTide || hasVeryLowTide(day.tides)
   );
   const displayedDays = filteredDays ?? [];
+
+  const todayData = data?.days.find((day) => isToday(data.year, data.month, day.day));
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -140,6 +143,8 @@ function App() {
 
         {data && !isLoading && !error && (
           <>
+            {todayData && <TideTip todayTides={todayData.tides} />}
+
             <AdBanner slot="3402483218" format="auto" className="mb-6" hasContent={!!data} />
 
             {viewMode === 'table' && (
@@ -204,6 +209,18 @@ function App() {
             </a>
             <a href="/faq.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
               FAQ
+            </a>
+            <a href="/guia-praias-maceio.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Guia de Praias
+            </a>
+            <a href="/piscinas-naturais-maceio.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Piscinas Naturais
+            </a>
+            <a href="/pesca-mares-alagoas.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Pesca e Maré
+            </a>
+            <a href="/seguranca-praia-mare.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
+              Segurança
             </a>
             <a href="/contato.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
               Contato
