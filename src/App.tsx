@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Waves, CaretDown } from '@phosphor-icons/react';
+import { Waves } from '@phosphor-icons/react';
 import { MonthKey, MONTHS } from './types/tide';
 import { useTideData } from './hooks/useTideData';
 import { isToday } from './utils/tideHelpers';
@@ -12,15 +12,28 @@ import {
   AdBanner,
 } from './components';
 
+const TODAY_SCROLL_GAP = 16;
+
+function getElementDocumentTop(element: HTMLElement): number {
+  let top = 0;
+  let current: HTMLElement | null = element;
+
+  while (current && current !== document.body) {
+    top += current.offsetTop;
+    current = current.offsetParent as HTMLElement | null;
+  }
+
+  return top;
+}
+
 function getCurrentMonthKey(): MonthKey {
   const currentMonth = new Date().getMonth();
   return MONTHS[currentMonth].key;
 }
 
 function getStoredViewMode(): 'cards' | 'table' {
-  // Verifica se está no servidor (SSR) - retorna valor padrão
   if (typeof window === 'undefined') return 'cards';
-  const stored = localStorage.getItem('viewMode');
+  const stored = localStorage.getItem('tideViewMode');
   return stored === 'table' ? 'table' : 'cards';
 }
 
@@ -30,38 +43,65 @@ function App() {
   const [viewMode, setViewMode] = useState<'cards' | 'table'>(getStoredViewMode);
   const { data, isLoading, error } = useTideData(selectedMonth);
 
-  // Salva o modo de visualização no localStorage (apenas no cliente)
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('viewMode', viewMode);
+      localStorage.setItem('tideViewMode', viewMode);
     }
   }, [viewMode]);
 
-  // Filtra dias que contêm maré muito baixa (< 0.2m)
-  const hasVeryLowTide = (tides: { height: number }[]) => 
-    tides.some(tide => tide.height < 0.2);
+  const hasVeryLowTide = (tides: { height: number }[]) =>
+    tides.some((tide) => tide.height < 0.2);
 
-  const filteredDays = data?.days.filter(day => 
-    !filterLowTide || hasVeryLowTide(day.tides)
+  const filteredDays = data?.days.filter(
+    (day) => !filterLowTide || hasVeryLowTide(day.tides)
   );
+  const displayedDays = filteredDays ?? [];
 
-  const todayCard = data?.days.find((day) =>
-    isToday(data.year, data.month, day.day)
-  );
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (isLoading || error || !data) return;
+    if (selectedMonth !== MONTHS[data.month - 1]?.key) return;
+
+    const now = new Date();
+    const isCurrentMonth =
+      now.getFullYear() === data.year && now.getMonth() + 1 === data.month;
+
+    if (!isCurrentMonth) return;
+
+    const frameId = window.requestAnimationFrame(() => {
+      const todayElement = document.querySelector('[data-today="true"]') as HTMLElement | null;
+      if (!todayElement) return;
+
+      const stickyHeader = document.querySelector('[data-sticky-header]') as HTMLElement | null;
+      const stickyHeight = stickyHeader ? stickyHeader.getBoundingClientRect().height : 0;
+      const targetScrollY = Math.max(
+        0,
+        getElementDocumentTop(todayElement) - stickyHeight - TODAY_SCROLL_GAP
+      );
+      const maxScrollY = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+      const clampedScrollY = Math.min(Math.max(targetScrollY, 0), maxScrollY);
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: clampedScrollY,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [data, error, isLoading, selectedMonth]);
 
   const handleMonthChange = (month: MonthKey) => {
     setSelectedMonth(month);
-    // Verifica se está no cliente antes de usar window
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (typeof window !== 'undefined' && month !== getCurrentMonthKey()) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-tide-50 to-tide-100 flex flex-col">
-      {/* Header + Menu Selector - Combined sticky container */}
-      <div className="sticky top-0 z-10">
-        {/* Header */}
+      <div className="sticky top-0 z-10" data-sticky-header>
         <header className="bg-white">
           <div className="max-w-7xl mx-auto px-4 py-4 md:py-5">
             <div className="flex items-center gap-3">
@@ -71,11 +111,9 @@ function App() {
               </h1>
             </div>
           </div>
-          {/* Separator */}
           <div className="h-px bg-tide-200" />
         </header>
 
-        {/* Month Selector */}
         <div className="bg-white shadow-sm border-b border-tide-100">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <MonthSelector
@@ -90,64 +128,36 @@ function App() {
         </div>
       </div>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
-        
-        {/* SEO Intro Text - visible but subtle */}
         <p className="text-fluid-sm text-tide-500 text-center mb-6 max-w-2xl mx-auto">
-          Consulte os horários de preamar e baixa-mar para as praias de Maceió, Alagoas. 
+          Consulte os horários de preamar e baixa-mar para as praias de Maceió, Alagoas.
           Selecione o mês e visualize os dados de maré com base nas informações da Marinha do Brasil.
         </p>
 
         {isLoading && <LoadingSpinner />}
-        
+
         {error && <ErrorMessage message={error} />}
 
         {data && !isLoading && !error && (
           <>
-            {/* Today's Card - Highlighted at Top (only in cards view) */}
-            {todayCard && viewMode === 'cards' && (
-              <section className="mb-6 sm:mb-8">
-                <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
-                  Hoje
-                </h2>
-                <div className="max-w-md sm:max-w-sm mx-auto">
-                  <DayCard
-                    day={todayCard}
-                    year={data.year}
-                    month={data.month}
-                    isHighlighted
-                  />
-                </div>
-                {/* Scroll indicator - mobile only */}
-                <div className="sm:hidden flex flex-col items-center mt-6 text-tide-400">
-                  <span className="text-fluid-sm">Deslize para ver mais</span>
-                  <CaretDown weight="bold" className="w-5 h-5 mt-1 animate-bounce" />
-                </div>
-              </section>
-            )}
-
-            {/* Ad Banner - Between today and month grid */}
             <AdBanner slot="3402483218" format="auto" className="mb-6" hasContent={!!data} />
 
-            {/* Month Title (only in table view) */}
             {viewMode === 'table' && (
               <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
                 {data.monthName} {data.year}
               </h2>
             )}
 
-            {/* Month Days List */}
             <section>
               {viewMode === 'cards' && (
                 <h2 className="text-fluid-lg font-semibold text-tide-700 mb-4 text-center">
                   {data.monthName} {data.year}
                 </h2>
               )}
-              
+
               {viewMode === 'cards' ? (
                 <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {filteredDays?.map((day) => (
+                  {displayedDays.map((day) => (
                     <DayCard
                       key={day.day}
                       day={day}
@@ -158,33 +168,26 @@ function App() {
                   ))}
                 </div>
               ) : (
-                <TideTable
-                  days={filteredDays || []}
-                  year={data.year}
-                  month={data.month}
-                />
+                <TideTable days={displayedDays} year={data.year} month={data.month} />
               )}
-              
-              {filterLowTide && filteredDays?.length === 0 && (
+
+              {filterLowTide && displayedDays.length === 0 && (
                 <p className="text-center text-tide-500 py-8">
-                  Nenhum dia com maré muito baixa neste mês.
+                  Nenhum dia com maré muito baixa foi encontrado no período filtrado.
                 </p>
               )}
             </section>
 
-            {/* Ad Banner - After content */}
             <AdBanner slot="5697474060" format="auto" lazy className="mt-6" hasContent={!!data} />
           </>
         )}
       </main>
 
-      {/* Footer */}
       <footer className="bg-tide-800 text-white mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          {/* Alexa Skill Banner */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 pb-6 border-b border-tide-700">
             <span className="text-fluid-sm text-tide-200">🎤 Consulte por voz:</span>
-            <a 
+            <a
               href="https://www.amazon.com.br/marcelodeandrade-T%C3%A1bua-de-Mar%C3%A9s-Macei%C3%B3/dp/B0GLQDL4WY/"
               target="_blank"
               rel="noopener noreferrer"
@@ -195,7 +198,6 @@ function App() {
             </a>
           </div>
 
-          {/* Navigation Links */}
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6">
             <a href="/sobre.html" className="text-tide-200 hover:text-white text-fluid-sm transition-colors">
               Sobre
@@ -214,7 +216,6 @@ function App() {
             </a>
           </nav>
 
-          {/* Source & Copyright */}
           <div className="text-center">
             <p className="text-fluid-xs text-tide-300 mb-1">
               Dados oficiais: Marinha do Brasil - Centro de Hidrografia da Marinha (CHM)
