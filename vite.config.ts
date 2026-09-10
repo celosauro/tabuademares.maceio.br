@@ -16,8 +16,12 @@ export default defineConfig({
       // Caminho absoluto para o script de prerender
       prerenderScript: path.resolve(__dirname, 'src/prerender.tsx'),
       // Rotas adicionais para pré-renderizar
-      additionalPrerenderRoutes: ['/'],
+      additionalPrerenderRoutes: ['/', '/share'],
     }),
   ],
   base: '/',
+  server: {
+    // Permite acesso via IP local (ex: celular na mesma rede Wi-Fi)
+    host: true,
+  },
 })

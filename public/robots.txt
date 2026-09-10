@@ -3,6 +3,7 @@
 
 User-agent: *
 Allow: /
+Disallow: /share
 
 # Sitemap
 Sitemap: https://tabuademares.maceio.br/sitemap.xml

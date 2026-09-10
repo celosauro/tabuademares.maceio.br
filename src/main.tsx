@@ -2,8 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { SharePage } from './pages/SharePage'
 import { SSRDataProvider } from './contexts/SSRDataContext'
 import { TideData, MonthKey } from './types/tide'
+import { isShareRoute } from './utils/routes'
 
 // Lê os dados SSR serializados no HTML pelo vite-prerender-plugin
 function getSSRData(): Map<MonthKey, TideData> {
@@ -28,8 +30,16 @@ function getSSRData(): Map<MonthKey, TideData> {
 const container = document.getElementById('root')!;
 const ssrData = getSSRData();
 
-// Verifica se há conteúdo pré-renderizado para hidratar
-if (container.hasChildNodes() && ssrData.size > 0) {
+// A rota /share é renderizada só no cliente (o prerender gera apenas o shell)
+if (isShareRoute(window.location.pathname)) {
+  createRoot(container).render(
+    <StrictMode>
+      <SSRDataProvider>
+        <SharePage />
+      </SSRDataProvider>
+    </StrictMode>
+  );
+} else if (container.hasChildNodes() && ssrData.size > 0) {
   hydrateRoot(
     container,
     <StrictMode>

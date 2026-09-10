@@ -6,3 +6,4 @@ export { DayCard } from './DayCard';
 export { TideTable } from './TideTable';
 export { AdBanner } from './AdBanner';
 export { TideTip } from './TideTip';
+export { StoryCard } from './StoryCard';
